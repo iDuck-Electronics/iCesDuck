@@ -63,34 +63,32 @@ Bajo este enfoque, la Raspberry Pi actúa como entorno de cómputo principal (s�
 
 - ### Raspberry Pi 4B
 
-  La Raspberry Pi 4B es el sistema de cómputo principal del proyecto, basada en un procesador **ARM** y equipada con un conjunto de pines **GPIO** que permiten interactuar directamente con el mundo exterior.  
-
-  En esta arquitectura, los GPIO son el enlace crítico entre la Raspberry y la placa **iCesDuck**, ya que a través de ellos se establece la comunicación con la **memoria de configuración de la FPGA** y con la **EEPROM** encargada de resguardar el archivo cargado (bitstream). De esta forma, la Raspberry Pi no solo ejecuta las herramientas de síntesis y carga, sino que también controla y supervisa el estado de la lógica implementada en la FPGA.
-
-  Esto se logra estableciendo una interfaz directa entre la Raspberry Pi y la FPGA **Lattice iCE40UP5K**. Esta FPGA es compatible con la [herramienta de síntesis APIO](https://github.com/FPGAwars/apio), la cual permite escribir y sintetizar diseños en **Verilog** utilizando únicamente herramientas libres, generando como resultado un archivo de configuración (**bitstream**).
-
-<p align="center">
-  <img src="docs/img/icesduck_front.png" alt="Apio" width="420">
-</p>
-
-  En el flujo de trabajo de iCesDuck, ese bitstream no se envía tal cual: primero se convierte a un **vector en hexadecimal**, y posteriormente la Raspberry Pi lo transmite mediante **SPI** hacia la FPGA y/o hacia la **EEPROM**, que es la encargada de almacenar la configuración para que pueda recuperarse al encender el sistema. [Ver archivo fuente `loader.c`](firmware/src/loader.c).
-
-  > Esto se toma de inspiracion sobre un projecto encontrado dentro de un repositorio de Github, aplicado a una placa llamada **UpDuino V1.0** y una **Raspberry Pi 3B** (actualmente el repositorio no lo encuentro por ningun lado, pero aclaro que esta idea inicialmente no es mia, y doy todos los creditos a quien lo implemento primero)
-
-  En el proceso de carga del bitstream, la **Raspberry Pi 4B** utiliza la librería **bcm2835** para controlar directamente los GPIO conectados a la FPGA **Lattice iCE40UP5K**. Los pines se emplean de la siguiente forma: **SDO** envía los datos, **SCLK** genera el reloj, **CSN** funciona como chip–select (activo en bajo), **CRESETB** realiza el reset de la FPGA y **CDONE** reporta si la configuración ha finalizado correctamente.
-
-<p align="center">
-  <img src="docs/img/icesduck_front.png" alt="iCesDuck – Pin-SPI" width="420">
-</p>
+   La **Raspberry Pi 4B** es el sistema de cómputo principal del proyecto. Está basada en un procesador **ARM** y cuenta con pines **GPIO** que permiten interactuar directamente con la placa **iCesDuck**, estableciendo la comunicación con la **memoria de configuración de la FPGA** y con la **EEPROM** que resguarda el bitstream. De este modo, la Raspberry Pi no solo ejecuta las herramientas de síntesis y carga, sino que también controla y supervisa la lógica implementada en la FPGA.
   
-  El código se divide en dos partes principales. Primero, el archivo de bitstream **hardware.bin** (generado por la herramienta de síntesis, por ejemplo [APIO](https://github.com/FPGAwars/apio)) se convierte a un arreglo en C (**bitmap[]**), donde cada byte queda representado en formato hexadecimal. Después, la Raspberry Pi reinicia la FPGA, activa **CSN** y envía el contenido de **bitmap[ ]** byte a byte mediante **bit–banging** sobre **SDO** y **SCLK**, mientras supervisa la línea `CDONE`: si esta pasa a nivel alto durante la transmisión, la configuración se considera exitosa; si nunca se eleva, se reporta un error.
-
-
-
-
-
-
-
+  Esta interfaz se construye alrededor de la FPGA **Lattice iCE40UP5K**, compatible con la [herramienta de síntesis APIO](https://github.com/FPGAwars/apio), que permite generar el archivo de configuración (**bitstream**) a partir de código **Verilog** usando únicamente herramientas libres.
+  
+  <p align="center">
+    <img src="docs/img/icesduck_front.png" alt="iCesDuck – Flujo de configuración" width="420">
+  </p>
+  
+  En el flujo de trabajo de iCesDuck, el bitstream generado no se envía directamente: primero se convierte a un **vector en hexadecimal** (`bitmap[]`) y posteriormente la Raspberry Pi lo transmite mediante una interfaz tipo **SPI por bit-banging** hacia la FPGA y/o la **EEPROM**, encargada de almacenar la configuración para su recuperación al encender el sistema. El código fuente de esta rutina puede consultarse en: [archivo `iDuck-RP-Upload.c`](firmware/src/loader.c).
+  
+  > Esta implementación se inspira en un proyecto previo para la placa **UpDuino V1.0** y una **Raspberry Pi 3B** encontrado originalmente en GitHub. Aunque dicho repositorio ya no se localiza, se reconoce que la idea base no es original de este trabajo y se otorgan los créditos al autor de la solución inicial.
+  
+  Durante la carga, la **Raspberry Pi 4B** utiliza la librería **bcm2835** para controlar los GPIO conectados a la FPGA. Los pines se emplean así: **SDO** envía los datos, **SCLK** genera el reloj, **CSN** actúa como chip-select (activo en bajo), **CRESETB** realiza el reset de la FPGA y **CDONE** indica si la configuración ha finalizado correctamente.
+  
+  <p align="center">
+    <img src="docs/img/icesduck_front.png" alt="iCesDuck – Pines SPI" width="420">
+  </p>
+  
+  El código se organiza en dos etapas: primero, el bitstream **`hardware.bin`** (generado por APIO) se convierte a un arreglo en C (**`bitmap[]`**). Luego, la Raspberry Pi reinicia la FPGA, activa **CSN** y envía el contenido de `bitmap[]` byte a byte mediante **bit-banging** sobre **SDO** y **SCLK**, supervisando la línea **CDONE**; si `CDONE` pasa a nivel alto durante la transmisión, la configuración se considera exitosa, de lo contrario se reporta un error.
+  
+  Recordemos que cualquier código escrito en **C** para Raspberry Pi que acceda a los GPIO, como el archivo [`iDuck-RP-Upload.c`](firmware/src/loader.c), debe compilarse con **gcc** para que el sistema pueda ejecutar la lógica definida en el fuente:
+  
+  ```bash
+  gcc -Wall -O2 iDuck-RP-Upload.c -o iDuck-RP-Upload -lbcm2835
+  sudo ./iDuck-RP-Upload
+  ```
 
 ---
 
