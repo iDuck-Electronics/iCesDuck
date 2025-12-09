@@ -81,15 +81,65 @@ Bajo este enfoque, la Raspberry Pi actúa como entorno de cómputo principal (s�
     <img src="docs/img/icesduck_front.png" alt="iCesDuck – Pines SPI" width="420">
   </p>
   
-  El código se organiza en dos etapas: primero, el bitstream **`hardware.bin`** (generado por APIO) se convierte a un arreglo en C (**`bitmap[]`**). Luego, la Raspberry Pi reinicia la FPGA, activa **CSN** y envía el contenido de `bitmap[]` byte a byte mediante **bit-banging** sobre **SDO** y **SCLK**, supervisando la línea **CDONE**; si `CDONE` pasa a nivel alto durante la transmisión, la configuración se considera exitosa, de lo contrario se reporta un error.
+  El código se organiza en dos etapas: primero, el bitstream **`hardware.bin`** (generado por APIO) se convierte a un arreglo en C (**`bitmap[ ]`**). Luego, la Raspberry Pi reinicia la FPGA, activa **CSN** y envía el contenido de `bitmap[ ]` byte a byte mediante **bit-banging** sobre **SDO** y **SCLK**, supervisando la línea **CDONE**; si `CDONE` pasa a nivel alto durante la transmisión, la configuración se considera exitosa, de lo contrario se reporta un error.
+  #### Inclusion de archivos relevanntes:
+  ```C
+  #include ".tempHex.c"
+  #include <bcm2835>
+  ```
+  #### Variables de almacenamiento
+  ```C
+  const char *nombre_archivo_entrada = "hardware.bin";
+  const char *nombre_archivo_salida  = ".tempHex.c";
+  ```
+  #### Conversión del bitstream binario a código C
+  ```C
+  void convertir_binario_a_c(const char *nombre_archivo_entrada,
+                             const char *nombre_archivo_salida);
+
+  ```
+  #### Definición de pinnes I/O:
+  ```C
+  #define SDO     RPI_BPLUS_GPIO_J8_35
+  #define SCLK    RPI_BPLUS_GPIO_J8_36
+  #define CSN     RPI_BPLUS_GPIO_J8_37
+  #define SDI     RPI_BPLUS_GPIO_J8_38
+  #define CRESETB RPI_BPLUS_GPIO_J8_40
+  #define CDONE   RPI_BPLUS_GPIO_J8_15
+  ```
+  #### Control de linea de datos y de reloj
+  ```C
+  void assert_sdo();
+  void dessert_sdo();
+  void assert_sclk();
+  void dessert_sclk();
+  ```
+  #### Control del chip select
+  ```C
+  void assert_ss();
+  void dessert_ss();
+  ```
+  #### Envio de bytes a FPGA
+  ```C
+  void sendbyte(char data);
+  ```
   
-  Recordemos que cualquier código escrito en **C** para Raspberry Pi que acceda a los GPIO, como el archivo [`iDuck-RP-Upload.c`](firmware/src/loader.c), debe compilarse con **gcc** para que el sistema pueda ejecutar la lógica definida en el fuente:
+  > **Nota:** En el script anterior se declara un archivo auxiliar llamado `.temp.c`. Este archivo intermedio es necesario, ya que en él se define de forma temporal el arreglo `bitmap[]` generado a partir del bitstream. Si `.temp.c` no existe, el programa no encontrará dicha matriz y la carga fallará, por lo que es importante que el archivo se genere correctamente (aunque internamente el arreglo se inicialice vacío).
+
+  ```C
+  char bitmap[] = { 0x.., 0x.., ... };
+  ```
+  
+  Recordemos que cualquier código escrito en **C** para Raspberry Pi que acceda a los GPIO, como el archivo [`iDuck-RP-Upload.c`](firmware/src/loader.c), debe compilarse con **gcc** para que el sistema pueda ejecutar la lógica definida en el fuente, ejemplo:
   
   ```bash
   gcc -Wall -O2 iDuck-RP-Upload.c -o iDuck-RP-Upload -lbcm2835
+  ```
+  
+  ```bash
   sudo ./iDuck-RP-Upload
   ```
-
+  
 ---
 
 ## Funcionamiento
