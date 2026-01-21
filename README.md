@@ -24,7 +24,7 @@ Integra **FPGA**, **DAC**, **ADC** y un **convertidor lógico** para adaptación
 ---
 
 ### Usos típicos
-sshtermi
+
 - **Laboratorio de prácticas** de sistemas digitales y sistemas mixtos (Analógico–Digital)  
 - **Prototipado rápido** de módulos de control, interfaces y lógica embebida  
 - **Depuración de HDL en hardware**, usando la Raspberry Pi como consola, programador y logger  
