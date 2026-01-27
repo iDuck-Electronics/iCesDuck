@@ -1,7 +1,7 @@
 # iCesDuck
 
 <p align="center">
-  <img src="docs/img/icesduck_front.png" alt="iCesDuck – Placa FPGA para Raspberry Pi 4B" width="420">
+  <img src="../iCesDuck/Documents/Images/Camera/BOARD.JPG" alt="iCesDuck – Placa FPGA para Raspberry Pi 4B" width="220">
 </p>
 
 ## Introduccion
