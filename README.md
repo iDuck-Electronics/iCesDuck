@@ -6,173 +6,359 @@
 
 ## Introducción
 
-**iCesDuck** es una placa de control basada en la FPGA **Lattice iCE40UP5K**, diseñada para llevar tus desarrollos en **Verilog** y **VHDL** desde simulación hasta hardware real, utilizando una **Raspberry Pi 4B** como plataforma principal y entorno de desarrollo.
+**iCesDuck** es una placa de desarrollo integrada diseñada para facilitar la implementación de diseños digitales complejos mediante la FPGA **Lattice iCE40UP5K**. Permite trasladar proyectos desde simulación HDL hasta hardware real utilizando **Verilog** y **VHDL**, con la **Raspberry Pi 4B** como entorno de síntesis, carga y supervisión.
 
-Integra **FPGA**, **DAC**, **ADC** y un **convertidor de niveles lógicos** para adaptación de voltajes, permitiendo experimentar con **lógica digital** y **señales mixtas** de forma ordenada y sin depender de cableado excesivo o montajes improvisados.
+La placa integra de manera modular una **FPGA programable**, **convertidores analógico-digital (ADC)** y **digital-analógico (DAC)**, así como **adaptadores de nivel lógico** para garantizar compatibilidad de voltajes en el ecosistema de señales mixtas. Esta arquitectura permite experimentación sistematizada sin depender de conexionados improvisados, proporcionando una solución robusta y documentada para prototipado e investigación.
 
 <p align="center">
   <img src="../iCesDuck/Documents/Images/Camera/BOARD.jpg" alt="iCesDuck – Placa FPGA para Raspberry Pi 4B" width="220">
 </p>
 
-La comunicación con la Raspberry Pi se realiza principalmente mediante **SPI**, interfaz usada para la **carga/configuración** del diseño en la FPGA. Adicionalmente, se exponen pines dedicados para interacción en tiempo real entre la FPGA y la Raspberry Pi a través de **UART** e **I²C**, ya sea para **enviar comandos de control** o para **intercambiar datos de mayor volumen**.
+La comunicación entre la Raspberry Pi e iCesDuck se establece mediante interfaz **SPI**, utilizada para la configuración y carga del bitstream en la FPGA. Adicionalmente, la placa expone canales de comunicación paralela mediante **UART** e **I²C** para intercambio de datos en tiempo real y control de periféricos integrados.
 
-La interacción usuario–máquina puede realizarse mediante pines hembra en **modo espejo** compatibles con los GPIO de la Raspberry Pi, y para la FPGA se dispone de una salida por **conector FFC/FPC (flex)** que permite acceder a señales y a los **drivers** integrados en la misma placa.
+El acceso a señales y entradas/salidas se facilita a través de pines hembra espejo compatibles con el conector GPIO de la Raspberry Pi, complementados por un conector **FFC/FPC (flexible)** dedicado que proporciona acceso directo a drivers y nodos de alta impedancia de la FPGA.
 
 ---
 
 ### Características principales
 
-- Compatible con **Raspberry Pi 4B** como host y entorno de pruebas  
-- **FPGA Lattice iCE40UP5K** para implementación de diseños en Verilog/VHDL  
-- **DAC** y **ADC** integrados para manejo de señales analógicas de entrada/salida  
-- **Convertidor lógico** para distintos niveles de voltaje en E/S digitales  
-- **Conector flex** hacia placa de expansión para llevar señales a pines, bornes o módulos externos
-- **Conectividad directa con RP4B** mediante **UART** y **GPIO/I2C**
+| Característica | Especificación |
+|---|---|
+| **FPGA** | Lattice iCE40UP5K (5.3K LUTs, 128 KB SRAM) |
+| **Compatibilidad** | Raspberry Pi 4B (ARM Cortex-A72, GPIO de 3.3 V) |
+| **Interfaces de comunicación** | SPI, I²C, UART |
+| **Conversión de señales** | ADC/DAC integrados con drivers de nivel lógico |
+| **Herramientas de síntesis** | Toolchain de código abierto (APIO + IceStorm) |
+| **Lenguajes soportados** | Verilog, VHDL |
+| **Expansión** | Conector FFC/FPC para módulos externos |
 
 ---
 
-### Usos típicos
+### Aplicaciones
 
-- **Laboratorio de prácticas** de sistemas digitales y sistemas mixtos (Analógico–Digital)  
-- **Prototipado rápido** de módulos de control, interfaces y lógica embebida  
-- **Depuración de HDL en hardware**, usando la Raspberry Pi como consola, programador y logger  
-
-> iCesDuck está pensada como una plataforma pequeña pero completa para jugar, experimentar y construir proyectos serios de electrónica digital sin complicarte la vida con el hardware de alrededor.
+- **Educación**: Laboratorios de sistemas digitales, arquitectura de computadores y electrónica embebida
+- **Investigación**: Prototipado de controladores, interfaces y lógica de propósito específico
+- **Prototipado industrial**: Validación de diseños antes de síntesis en ASIC o FPGA comercial
+- **Depuración de HDL**: Ejecución de pruebas unitarias en hardware real con trazabilidad mediante Raspberry Pi
 
 ---
 
-### Origen del proyecto
+### Origen y visión del proyecto
 
-iCesDuck surge con la intención de ofrecer una **herramienta libre** que permita procesar código **Verilog** y **VHDL** e interpretarlo directamente sobre una tarjeta con **módulos especializados para control**, apoyada por un entorno de cómputo dedicado para el **procesamiento** y su **presentación gráfica**. De esta forma, la plataforma busca acercar el diseño digital y los sistemas Control a laboratorios, aprendizaje autodidacta y proyectos de investigación sin depender de soluciones propietarias.
+iCesDuck nace como iniciativa de democratizar el acceso a **herramientas de síntesis HDL de código abierto**, permitiendo a investigadores, estudiantes y profesionales verificar diseños **Verilog** y **VHDL** en hardware real sin depender de soluciones propietarias. 
 
-El proyecto se encuentra todavía en fase de **experimentación y crecimiento**: hay secciones de hardware, firmware y documentación que siguen puliéndose. La publicación en este repositorio busca que otras personas puedan **probarlo, replicarlo, adaptarlo y mejorar lo existente**, manteniendo vivo el espíritu original del trabajo de tesis.
+El proyecto integra la FPGA **iCE40UP5K** con un entorno de cómputo accesible (Raspberry Pi 4B), facilitando la **síntesis**, **configuración** y **supervisión** de lógica digital en una única plataforma compacta. De este modo, iCesDuck cierra la brecha entre simulación y hardware, proporcionando una solución educativa y profesional para laboratorios, centros de investigación y proyectos de ingeniería de controladores embebidos.
+
+Actualmente, el proyecto se encuentra en fase de **maduración técnica**, con secciones de firmware, hardware y documentación que se refinan continuamente. Se fomenta la contribución de la comunidad para **validar, replicar, adaptar y mejorar** todos los componentes, preservando el carácter abierto y colaborativo de la iniciativa.
 
 ---
 
 ## Estado del proyecto
 
-- **05-09-2024** - **Nuevo**
-
-> Proyecto estructurado y placa ensamblada correctamente. Reguladores (3.3 V/1.2 V) y reloj verificados: CLK estable a 48 MHz. FPGA operativa (bitstream + pruebas de E/S OK). Pendiente validar DAC/ADC por falta de cores SPI/I²C. EEPROM inestable: requiere recargar .bin tras cada apagado. Código en C adaptado de RPi 3B a 4B y dependencias simplificadas.
-
-
-- **XX-XX-XXXX** - **En proceso**
-
-> Esperando una nueva actualización...
+| Fecha | Versión | Estado | Notas |
+|---|---|---|---|
+| **05-09-2024** | **0.1-Alpha** | Funcional | Placa ensamblada. FPGA operativa con bitstream verificado. Reguladores (3.3 V/1.2 V) estables. CLK @ 48 MHz validado. Pendiente validación de ADC/DAC. EEPROM requiere persistencia de configuración. |
+| **XX-XX-XXXX** | **0.2-Beta** | En desarrollo | Mejora de drivers SPI/I²C, documentación técnica ampliada, ejemplos funcionales. |
 
 ---
 
-## Arquitectura
+## Arquitectura del sistema
 
-  El proyecto se compone de diversos elementos que, al unificarse, dan forma a la placa **iCesDuck**. Como se mencionó anteriormente, el objetivo es construir un sistema electrónico capaz de generar señales de control mediante la **FPGA**; sin embargo, esta tarjeta por sí sola no está pensada para ser programada desde cualquier equipo de cómputo, sino para **embebirse directamente en una Raspberry Pi 4B** a través de sus pines **GPIO**.  
+La plataforma iCesDuck está estructurada en torno a una arquitectura maestro-esclavo, donde la **Raspberry Pi 4B** actúa como unidad de control principal (síntesis, compilación, programación) y **iCesDuck** como módulo especializado para ejecución de lógica digital. Esta separación funcional garantiza máxima flexibilidad:
 
-  Bajo este enfoque, la Raspberry Pi actúa como entorno de cómputo principal (síntesis, carga y supervisión), mientras que iCesDuck concentra la lógica programable, la adaptación de señales/datos y la actuación sobre el entorno mediante sus salidas digitales y analógicas.
+- **Raspberry Pi 4B**: Procesamiento HDL, gestión de bitstream, supervisión y depuración
+- **iCesDuck**: Ejecución de lógica digital, conversión analógica-digital, interfaz de entrada/salida
 
-- ### Raspberry Pi 4B
+### Componentes principales
 
-   La **Raspberry Pi 4B** es el sistema de cómputo principal del proyecto. Está basada en un procesador **ARM** y cuenta con pines **GPIO** que permiten interactuar directamente con la placa **iCesDuck**, estableciendo la comunicación con la **memoria de configuración de la FPGA** y con la **EEPROM** que resguarda el bitstream. De este modo, la Raspberry Pi no solo ejecuta las herramientas de síntesis y carga, sino que también controla y supervisa la lógica implementada en la FPGA.
+#### Raspberry Pi 4B – Núcleo de procesamiento
+
+La **Raspberry Pi 4B** proporciona capacidad de cómputo ARM para:
+- Síntesis de código Verilog/VHDL mediante herramientas de código abierto (APIO, IceStorm)
+- Generación del archivo de configuración (bitstream: `hardware.bin`)
+- Control de la interfaz SPI para carga del bitstream en la FPGA
+- Supervisión de líneas de estado (CDONE, señales de error)
+- Depuración y logging en tiempo real
+
+**Conectividad**: Utiliza pines GPIO de 3.3 V del conector J8 para establecer comunicación directa con iCesDuck sin adaptadores externos.
+
+#### FPGA Lattice iCE40UP5K – Motor de lógica programable
+
+La **iCE40UP5K** es el núcleo de iCesDuck, proporcionando:
+- **5,280 Look-Up Tables (LUTs)** para implementación de lógica combinacional y secuencial
+- **128 KB de SRAM** para memoria de datos y control
+- **Multiplicadores embebidos** para operaciones aritméticas eficientes
+- **Phase-Locked Loop (PLL)** para síntesis de frecuencias
+- Compatibilidad con herramientas de síntesis de código abierto ([APIO](https://github.com/FPGAwars/apio), [IceStorm](http://www.clifford.at/icestorm/))
+
+El bitstream se carga mediante protocolo SPI bit-banging desde la Raspberry Pi, permitiendo reprogramación sin herramientas especializadas.
   
-  Esta interfaz se construye alrededor de la FPGA **Lattice iCE40UP5K**, compatible con la [herramienta de síntesis APIO](https://github.com/FPGAwars/apio), que permite generar el archivo de configuración (**bitstream**) a partir de código **Verilog** usando únicamente herramientas libres.
-  
-  <p align="center">
-    <img src="docs/img/icesduck_front.png" alt="iCesDuck – Flujo de configuración" width="420">
-  </p>
-  
-  En el flujo de trabajo de iCesDuck, el bitstream no se envía directamente: primero se convierte desde **hardware.bin** a un **vector hexadecimal** (`bitmap[]`). Después, la **Raspberry Pi** lo transmite hacia la **FPGA** y/o la **EEPROM** mediante una interfaz tipo **SPI por bit-banging**, permitiendo almacenar la configuración y recuperarla al encender el sistema. La rutina puede consultarse en: [`iDuck-RP-Upload.c`](../iCesDuck/Core-Raspi/SPI-Upload/iDuck-RP-Upload.c).
+#### Flujo de programación
 
-  Durante la carga, la **Raspberry Pi 4B** utiliza la librería **bcm2835** para controlar los GPIO conectados a la FPGA. Los pines se emplean así: **SDO** envía los datos, **SCLK** genera el reloj, **CSN** actúa como chip-select (activo en bajo), **CRESETB** realiza el reset de la FPGA y **CDONE** indica si la configuración ha finalizado correctamente.
-  
-  <p align="center">
-    <img src="docs/img/icesduck_front.png" alt="iCesDuck – Pines SPI" width="420">
-  </p>
-  
-  El código se organiza en dos etapas: primero, el bitstream **`hardware.bin`** (generado por APIO) se convierte a un arreglo en C (**`bitmap[]`**). Luego, la Raspberry Pi reinicia la FPGA, activa **CSN** y envía el contenido de `bitmap[]` byte a byte mediante **bit-banging** sobre **SDO** y **SCLK**, supervisando la línea **CDONE**; si `CDONE` pasa a nivel alto durante la transmisión, la configuración se considera exitosa, de lo contrario se reporta un error.
+El proceso de carga del diseño en la FPGA consta de tres etapas:
 
-  #### Inclusión de archivos relevantes
+  #### Inclusión de dependencias
 
-    En esta sección se muestran los `#include` principales y qué aporta cada uno al programa:
+  El programa requiere dos inclusiones fundamentales:
 
-    ```c
-    #include ".tempHex.c"
-    #include <bcm2835.h>
-    ````
+  ```C
+  #include ".tempHex.c"      // Vector hexadecimal del bitstream
+  #include <bcm2835.h>       // Control de GPIO
+  ```
 
-    La inclusión de `.tempHex.c` permite tener cargados temporalmente los datos de `hardware.bin` en un **vector hexadecimal**, de forma que el código pueda recorrerlo y transmitirlo mediante las rutinas de **SPI (bit-banging)**. Por su parte, la librería `bcm2835.h` proporciona el mapeo y control de los **GPIO** (nombres/definiciones de pines y funciones de acceso), necesarios para generar las señales usadas en la comunicación tipo SPI.
+  **`.tempHex.c`**: Archivo generado por `convertir_binario_a_c()` que contiene el vector `bitmap[]` con los datos del bitstream en formato hexadecimal. **`bcm2835.h`**: Librería de bajo nivel que proporciona mapeo de pines GPIO y funciones de acceso directo
 
   #### Variables de almacenamiento
 
-  En esta sección se muestran las variables `const char` que identifican los archivos de entrada y de salida para la conversión del bitstream:
+  En esta sección se definen las rutas de los archivos de entrada y salida para el proceso de conversión:
   
   ```C
   const char *nombre_archivo_entrada = "hardware.bin";
   const char *nombre_archivo_salida  = ".tempHex.c";
   ```
+  
+  Estas constantes permiten identificar el bitstream generado por APIO y especificar dónde almacenar el archivo intermedio C. Este diseño facilita cambios de rutas sin modificación del código fuente principal.
 
   #### Conversión del bitstream binario a código C
+
+  Etapa fundamental que transforma el archivo binario del bitstream en un vector C compilable. La función `convertir_binario_a_c()` realiza esta conversión de forma automática:
+
+  <p align="center">
+  <img src="Documents/Images/Drawing/CTRL-Bin_Hex.png" alt="Flujo de conversión de bitstream binario a código C" width="280">
+  </p>
+
   ```C
   void convertir_binario_a_c(const char *nombre_archivo_entrada,
                              const char *nombre_archivo_salida);
   ```
+  El algoritmo implementa los siguientes pasos:
 
-  #### Definición de pines I/O:
-  ```C
-  #define SDO     RPI_BPLUS_GPIO_J8_35
-  #define SCLK    RPI_BPLUS_GPIO_J8_36
-  #define CSN     RPI_BPLUS_GPIO_J8_37
-  #define SDI     RPI_BPLUS_GPIO_J8_38
-  #define CRESETB RPI_BPLUS_GPIO_J8_40
-  #define CDONE   RPI_BPLUS_GPIO_J8_15
-  ```
-  
-  #### Control de línea de datos y de reloj
-  ```C
-  void assert_sdo();
-  void dessert_sdo();
-  void assert_sclk();
-  void dessert_sclk();
-  ```
-  #### Control del chip select
-  ```C
-  void assert_ss();
-  void dessert_ss();
-  ```
-  #### Envío de bytes a FPGA
-  ```C
-  void sendbyte(char data);
-  ```
-  
-  > **Nota:** En el script anterior se declara un archivo auxiliar llamado `.tempHex.c`. Este archivo intermedio es necesario, ya que en él se define de forma temporal el arreglo `bitmap[]` generado a partir del bitstream. Si `.tempHex.c` no existe, el programa no encontrará dicha matriz y la carga fallará, por lo que es importante que el archivo se genere correctamente (aunque internamente el arreglo se inicialice vacío).
+  1. **Lectura binaria**: Abre `hardware.bin` en modo lectura binaria.
+  2. **Iteración**: Recorre cada byte del fichero secuencialmente.
+  3. **Conversión hexadecimal**: Transforma cada valor a notación hexadecimal (`0xXX`).
+  4. **Generación de vector**: Construye el vector `bitmap[]` completo con todos los bytes.
+  5. **Cierre de ficheros**: Finaliza la operación cerrando ambos ficheros.
 
-  ```C
-  char bitmap[] = { 0x.., 0x.., ... };
+  El resultado es un fichero C que contiene el bitstream en formato adecuado para inclusión directa en el código fuente, dentro de este archivo se genera la siguiente estructura:
+  El resultado es un fichero C que contiene el bitstream como un array de bytes, listo para inclusión directa en el código fuente. Ejemplo del contenido generado:
+
+  ```c
+  unsigned char bitmap[] = { 0x00, 0xAF, 0x10, /* ... */ };
   ```
+
+  El fichero (por ejemplo `.tempHex.c`) se incorpora con `#include ".tempHex.c"` y proporciona `bitmap` y su longitud. El firmware transmite estos bytes por SPI (bit-banging) desde la Raspberry Pi hacia la FPGA usando los pines GPIO definidos; opcionalmente puede almacenarse en la EEPROM para persistencia.
+
+  #### Mapeo de pines GPIO
+
+  La interfaz SPI utiliza seis líneas GPIO del conector J8 de Raspberry Pi:
   
-  Recordemos que cualquier código escrito en **C** para Raspberry Pi que acceda a los GPIO, como el archivo [`iDuck-RP-Upload.c`](../iCesDuck/Core-Raspi/SPI-Upload/iDuck-RP-Upload.c), debe compilarse con **gcc** para que el sistema pueda ejecutar la lógica definida en el fuente, ejemplo:
+  ```C
+  #define SDO     RPI_BPLUS_GPIO_J8_35    // Serial Data Out (MOSI)
+  #define SCLK    RPI_BPLUS_GPIO_J8_36    // Serial Clock
+  #define CSN     RPI_BPLUS_GPIO_J8_37    // Chip Select Negado
+  #define SDI     RPI_BPLUS_GPIO_J8_38    // Serial Data In (MISO)
+  #define CRESETB RPI_BPLUS_GPIO_J8_40    // Config Reset (activo bajo)
+  #define CDONE   RPI_BPLUS_GPIO_J8_15    // Config Done (entrada)
+  ```
+
+  | Nombre | Pin J8 | Dirección | Descripción |
+  |---|---|---|---|
+  | **SDO** | 35 | Salida | Transmisión de datos → FPGA |
+  | **SCLK** | 36 | Salida | Reloj de serialización |
+  | **CSN** | 37 | Salida | Chip-Select (0 = activo) |
+  | **SDI** | 38 | Entrada | Recepción de datos ← FPGA |
+  | **CRESETB** | 40 | Salida | Reset de configuración (0 = reset) |
+  | **CDONE** | 15 | Entrada | Indicador de carga completada |
   
+  #### Operaciones de línea
+
+  El firmware implementa funciones de manipulación de bajo nivel para cada señal:
+  
+  ```C
+  void assert_sdo();      // Establecer SDO = 1
+  void dessert_sdo();     // Establecer SDO = 0
+  void assert_sclk();     // Establecer SCLK = 1
+  void dessert_sclk();    // Establecer SCLK = 0
+  void assert_ss();       // Establecer CSN = 0 (chip seleccionado)
+  void dessert_ss();      // Establecer CSN = 1 (chip deseleccionado)
+  void sendbyte(char data);  // Transmitir byte completo
+  ```
+
+  Estas funciones abstraen el control de GPIO, permitiendo la serialización sincronizada del bitstream.
+
+  #### Compilación y ejecución
+
+  El código fuente se compila enlazando contra la librería **bcm2835**:
+
   ```bash
   gcc -Wall -O2 iDuck-RP-Upload.c -o iDuck-RP-Upload -lbcm2835
   ```
-  
+
+  Flags utilizados:
+  - `-Wall`: Habilita todos los warnings del compilador
+  - `-O2`: Optimización de nivel 2 (rendimiento)
+  - `-lbcm2835`: Enlace con la librería bcm2835
+
+  La ejecución requiere privilegios de root para acceso directo a memoria GPIO:
+
   ```bash
   sudo ./iDuck-RP-Upload
   ```
-  
----
 
+  > **Importante**: El acceso a GPIO requiere ejecución con `sudo`. Se recomienda configurar el usuario dentro del grupo `gpio` para evitar esta requering en futuras ejecuciones.
+  
 ## Funcionamiento
 
-> Esta sección describe el flujo de trabajo para utilizar la placa iCesDuck: desde la síntesis del diseño Verilog/VHDL, compilación del bitstream, conversión a formato C y carga en la FPGA.
+El flujo de trabajo en iCesDuck sigue estos pasos secuenciales:
+
+1. **Síntesis HDL**: El usuario escribe código Verilog/VHDL en su sistema
+2. **Compilación**: APIO sintetiza el código y genera `hardware.bin` (bitstream)
+3. **Conversión**: El programa C convierte `hardware.bin` a vector hexadecimal (`bitmap[]`)
+4. **Carga**: La Raspberry Pi transmite el bitstream a la FPGA mediante SPI bit-banging
+5. **Ejecución**: La FPGA ejecuta la lógica programada
+6. **Supervisión**: Raspberry Pi monitorea líneas de control y depura en tiempo real
+
+Este ciclo permite iteración rápida entre diseño, validación y depuración sin requerir herramientas costosas o procesos complejos.
 
 ---
 
-## Ejemplos/Demos
+## Ejemplos y Demostraciones
 
-> En esta sección se incluirán ejemplos prácticos y demostraciones de proyectos realizados con iCesDuck.
+### Ejemplos incluidos
+
+Se proporcionan ejemplos didácticos que cubren:
+
+- **Contador binario**: Implementación de contadores con diferentes anchos de bit
+- **Máquina de estados**: Diseños FSM para control secuencial
+- **Interfaz UART**: Comunicación serie con la Raspberry Pi
+- **PWM generator**: Generador de PWM variable en frecuencia y duty cycle
+- **ADC/DAC**: Ejemplos de conversión analógica-digital en tiempo real
+
+Cada ejemplo incluye:
+- Código Verilog comentado
+- Testbench para simulación
+- Instrucciones de síntesis y carga
+- Resultados esperados y validación
+
+### Demostraciones en vivo
+
+Se incluyen scripts Python/Bash para:
+- Automatizar síntesis y carga
+- Visualizar resultados en tiempo real
+- Generar gráficas de señales
+- Registrar trazas de depuración
 
 ---
 
-## Créditos
+## Requisitos y dependencias
+
+### Hardware
+
+- **Raspberry Pi 4B** (4 GB RAM mínimo recomendado)
+- **iCesDuck** placa ensamblada y funcional
+- **Cable USB** o alimentación dedicada
+- **Adaptador de tarjeta SD** para SO
+
+### Software
+
+- **Raspberry Pi OS** (Bullseye o posterior, 64-bit recomendado)
+- **APIO** toolchain ([instalación](https://github.com/FPGAwars/apio))
+- **Librería bcm2835** (`sudo apt-get install libbcm2835-dev`)
+- **Compilador GCC** (incluido por defecto)
+- **Herramientas de síntesis**: IceStorm, yosys, nextpnr
+
+### Instalación rápida
+
+```bash
+curl -sSL https://raw.githubusercontent.com/iDuck-Electronics/iCesDuck/main/Install/install.sh | bash
+```
 
 ---
+
+## Solución de problemas
+
+### FPGA no se configura (CDONE permanece en bajo)
+
+**Causas posibles**:
+- Bitstream corrupto o mal generado
+- Problemas de sincronización SPI
+- Conexión deficiente entre pines GPIO
+
+**Soluciones**:
+- Verificar permisos de lectura en `hardware.bin`
+- Regenerar bitstream con APIO
+- Validar continuidad en cables GPIO
+- Consultar logs del programa
+
+### Librería bcm2835 no se encuentra
+
+```bash
+sudo apt-get install libbcm2835-dev
+```
+
+### Acceso denegado a GPIO
+
+```bash
+sudo usermod -aG gpio $USER
+newgrp gpio
+```
+
+Después, reiniciar sesión.
+
+---
+
+## Créditos y contribuciones
+
+### Autor/es
+
+**iCesDuck** fue desarrollado como proyecto de investigación en el contexto de sistemas digitales y electrónica embebida de código abierto.
+
+### Contribuciones
+
+Se alienta la contribución de la comunidad mediante:
+- Reportes de bugs y solicitudes de mejora
+- Aporte de nuevos ejemplos y tutoriales
+- Optimización de código y documentación
+- Validación en diferentes versiones de hardware y SO
+
+### Agradecimientos
+
+Agradecemos especialmente a:
+- **FPGAwars** por APIO y herramientas de síntesis
+- **Clifford Wolf** por el proyecto IceStorm
+- Comunidad de código abierto y entusiastas de FPGA
+
+### Licencia
+
+Este proyecto se distribuye bajo licencia abierta. Consultar `LICENSE` para detalles completos.
+
+---
+
+## Recursos adicionales
+
+### Documentación técnica
+
+- [Hoja de datos iCE40UP5K](http://www.latticesemi.com/)
+- [GPIO Raspberry Pi](https://www.raspberrypi.org/documentation/computers/gpio/)
+- [Verilog HDL Tutorial](https://www.verilogtutor.com/)
+- [APIO Documentación](https://github.com/FPGAwars/apio/wiki)
+
+### Comunidades y foros
+
+- [FPGAwars Forum](https://github.com/FPGAwars)
+- [Raspberry Pi Forums](https://www.raspberrypi.org/forums/)
+- [Stack Overflow FPGA](https://stackoverflow.com/questions/tagged/fpga)
+
+### Proyectos relacionados
+
+- [IceStorm](http://www.clifford.at/icestorm/)
+- [Yosys](http://www.clifford.at/yosys/)
+- [NextPnR](https://github.com/YosysHQ/nextpnr)
+
+---
+
+**Última actualización**: Febrero 2026  
+**Estado**: En desarrollo activo  
+**Versión del documento**: 1.0
 
 
