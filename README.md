@@ -4,7 +4,7 @@
   <img src="../iCesDuck/Documents/Images/Camera/" alt="Portada" width="220">
 </p>
 
-## Introduccion
+## Introducción
 
 **iCesDuck** es una placa de control basada en la FPGA **Lattice iCE40UP5K**, diseñada para llevar tus desarrollos en **Verilog** y **VHDL** desde simulación hasta hardware real, utilizando una **Raspberry Pi 4B** como plataforma principal y entorno de desarrollo.
 
@@ -22,7 +22,7 @@ La interacción usuario–máquina puede realizarse mediante pines hembra en **m
 
 ### Características principales
 
-- Compatíble con **Raspberry Pi 4B** como host y entorno de pruebas  
+- Compatible con **Raspberry Pi 4B** como host y entorno de pruebas  
 - **FPGA Lattice iCE40UP5K** para implementación de diseños en Verilog/VHDL  
 - **DAC** y **ADC** integrados para manejo de señales analógicas de entrada/salida  
 - **Convertidor lógico** para distintos niveles de voltaje en E/S digitales  
@@ -58,7 +58,7 @@ El proyecto se encuentra todavía en fase de **experimentación y crecimiento**:
 
 - **XX-XX-XXXX** - **En proceso**
 
-> Esperena a una nueva actualizacion...
+> Esperando una nueva actualización...
 
 ---
 
@@ -88,29 +88,33 @@ El proyecto se encuentra todavía en fase de **experimentación y crecimiento**:
   
   El código se organiza en dos etapas: primero, el bitstream **`hardware.bin`** (generado por APIO) se convierte a un arreglo en C (**`bitmap[]`**). Luego, la Raspberry Pi reinicia la FPGA, activa **CSN** y envía el contenido de `bitmap[]` byte a byte mediante **bit-banging** sobre **SDO** y **SCLK**, supervisando la línea **CDONE**; si `CDONE` pasa a nivel alto durante la transmisión, la configuración se considera exitosa, de lo contrario se reporta un error.
 
- #### Inclusión de archivos relevantes
+  #### Inclusión de archivos relevantes
 
-  En esta sección se muestran los `#include` principales y qué aporta cada uno al programa:
+    En esta sección se muestran los `#include` principales y qué aporta cada uno al programa:
 
-  ```c
-  #include ".tempHex.c"
-  #include <bcm2835.h>
-  ````
+    ```c
+    #include ".tempHex.c"
+    #include <bcm2835.h>
+    ````
 
-  La inclusión de `.tempHex.c` permite tener cargados temporalmente los datos de `hardware.bin` en un **vector hexadecimal**, de forma que el código pueda recorrerlo y transmitirlo mediante las rutinas de **SPI (bit-banging)**. Por su parte, la librería `bcm2835.h` proporciona el mapeo y control de los **GPIO** (nombres/definiciones de pines y funciones de acceso), necesarios para generar las señales usadas en la comunicación tipo SPI.
+    La inclusión de `.tempHex.c` permite tener cargados temporalmente los datos de `hardware.bin` en un **vector hexadecimal**, de forma que el código pueda recorrerlo y transmitirlo mediante las rutinas de **SPI (bit-banging)**. Por su parte, la librería `bcm2835.h` proporciona el mapeo y control de los **GPIO** (nombres/definiciones de pines y funciones de acceso), necesarios para generar las señales usadas en la comunicación tipo SPI.
 
   #### Variables de almacenamiento
+
+  En esta sección se muestran las variables `const char` que identifican los archivos de entrada y de salida para la conversión del bitstream:
+  
   ```C
   const char *nombre_archivo_entrada = "hardware.bin";
   const char *nombre_archivo_salida  = ".tempHex.c";
   ```
+
   #### Conversión del bitstream binario a código C
   ```C
   void convertir_binario_a_c(const char *nombre_archivo_entrada,
                              const char *nombre_archivo_salida);
-
   ```
-  #### Definición de pinnes I/O:
+
+  #### Definición de pines I/O:
   ```C
   #define SDO     RPI_BPLUS_GPIO_J8_35
   #define SCLK    RPI_BPLUS_GPIO_J8_36
@@ -119,7 +123,8 @@ El proyecto se encuentra todavía en fase de **experimentación y crecimiento**:
   #define CRESETB RPI_BPLUS_GPIO_J8_40
   #define CDONE   RPI_BPLUS_GPIO_J8_15
   ```
-  #### Control de linea de datos y de reloj
+  
+  #### Control de línea de datos y de reloj
   ```C
   void assert_sdo();
   void dessert_sdo();
@@ -131,18 +136,18 @@ El proyecto se encuentra todavía en fase de **experimentación y crecimiento**:
   void assert_ss();
   void dessert_ss();
   ```
-  #### Envio de bytes a FPGA
+  #### Envío de bytes a FPGA
   ```C
   void sendbyte(char data);
   ```
   
-  > **Nota:** En el script anterior se declara un archivo auxiliar llamado `.temp.c`. Este archivo intermedio es necesario, ya que en él se define de forma temporal el arreglo `bitmap[]` generado a partir del bitstream. Si `.temp.c` no existe, el programa no encontrará dicha matriz y la carga fallará, por lo que es importante que el archivo se genere correctamente (aunque internamente el arreglo se inicialice vacío).
+  > **Nota:** En el script anterior se declara un archivo auxiliar llamado `.tempHex.c`. Este archivo intermedio es necesario, ya que en él se define de forma temporal el arreglo `bitmap[]` generado a partir del bitstream. Si `.tempHex.c` no existe, el programa no encontrará dicha matriz y la carga fallará, por lo que es importante que el archivo se genere correctamente (aunque internamente el arreglo se inicialice vacío).
 
   ```C
   char bitmap[] = { 0x.., 0x.., ... };
   ```
   
-  Recordemos que cualquier código escrito en **C** para Raspberry Pi que acceda a los GPIO, como el archivo [`iDuck-RP-Upload.c`](firmware/src/loader.c), debe compilarse con **gcc** para que el sistema pueda ejecutar la lógica definida en el fuente, ejemplo:
+  Recordemos que cualquier código escrito en **C** para Raspberry Pi que acceda a los GPIO, como el archivo [`iDuck-RP-Upload.c`](../iCesDuck/Core-Raspi/SPI-Upload/iDuck-RP-Upload.c), debe compilarse con **gcc** para que el sistema pueda ejecutar la lógica definida en el fuente, ejemplo:
   
   ```bash
   gcc -Wall -O2 iDuck-RP-Upload.c -o iDuck-RP-Upload -lbcm2835
@@ -156,13 +161,17 @@ El proyecto se encuentra todavía en fase de **experimentación y crecimiento**:
 
 ## Funcionamiento
 
+> Esta sección describe el flujo de trabajo para utilizar la placa iCesDuck: desde la síntesis del diseño Verilog/VHDL, compilación del bitstream, conversión a formato C y carga en la FPGA.
+
 ---
 
 ## Ejemplos/Demos
 
+> En esta sección se incluirán ejemplos prácticos y demostraciones de proyectos realizados con iCesDuck.
+
 ---
 
-## Creditos
+## Créditos
 
 ---
 
