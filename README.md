@@ -1,7 +1,7 @@
 # iCesDuck
 
 <p align="center">
-  <img src="../iCesDuck/Documents/Images/Camera/" alt="Portada" width="220">
+  <img src="Documents/Images/Camera/BOARD.jpg" alt="iCesDuck – Placa FPGA para Raspberry Pi 4B" width="220">
 </p>
 
 ## Introducción
@@ -11,7 +11,7 @@
 La placa integra de manera modular una **FPGA programable**, **convertidores analógico-digital (ADC)** y **digital-analógico (DAC)**, así como **adaptadores de nivel lógico** para garantizar compatibilidad de voltajes en el ecosistema de señales mixtas. Esta arquitectura permite experimentación sistematizada sin depender de conexionados improvisados, proporcionando una solución robusta y documentada para prototipado e investigación.
 
 <p align="center">
-  <img src="../iCesDuck/Documents/Images/Camera/BOARD.jpg" alt="iCesDuck – Placa FPGA para Raspberry Pi 4B" width="220">
+  <img src="Documents/Images/Camera/BOARD.jpg" alt="iCesDuck – Placa FPGA para Raspberry Pi 4B" width="220">
 </p>
 
 La comunicación entre la Raspberry Pi e iCesDuck se establece mediante interfaz **SPI**, utilizada para la configuración y carga del bitstream en la FPGA. Adicionalmente, la placa expone canales de comunicación paralela mediante **UART** e **I²C** para intercambio de datos en tiempo real y control de periféricos integrados.
@@ -143,7 +143,7 @@ El proceso de carga del diseño en la FPGA consta de tres etapas:
   El resultado es un fichero C que contiene el bitstream como un array de bytes, listo para inclusión directa en el código fuente. Ejemplo del contenido generado:
 
   ```c
-  unsigned char bitmap[] = { 0x00, 0xAF, 0x10, /* ... */ };
+  char bitmap[] = { 0x00, 0xAF, 0x10, ... };
   ```
 
   El fichero (por ejemplo `.tempHex.c`) se incorpora con `#include ".tempHex.c"` y proporciona `bitmap` y su longitud. El firmware transmite estos bytes por SPI (bit-banging) desde la Raspberry Pi hacia la FPGA usando los pines GPIO definidos; opcionalmente puede almacenarse en la EEPROM para persistencia.
