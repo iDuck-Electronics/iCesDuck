@@ -1,0 +1,29 @@
+# Sistema
+.DS_Store
+Thumbs.db
+
+# VS Code local
+.vscode/settings.json
+
+# Temporales
+tmp/*
+build/*
+dist/*
+
+# Logs
+*.log
+data/logs/*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Compilados C
+*.o
+*.out
+
+# Ejecutables generados
+src/pi/loader/iDuck-RP-Upload
+tools/pi/iDuck-RP-Upload
