@@ -161,36 +161,120 @@ El repositorio se divide por áreas para separar el diseño físico, el software
 
 ## Arquitectura del sistema
 
-iCesDuck utiliza una arquitectura **host-dispositivo**:
+iCesDuck utiliza una arquitectura **host–dispositivo**, en la que la **Raspberry Pi 4B** funciona como unidad de desarrollo, programación y supervisión, mientras que la placa **iCesDuck** actúa como plataforma de ejecución para la lógica digital.
 
-- **Raspberry Pi 4B:** sintetiza el diseño HDL, genera el bitstream, controla la carga de la FPGA, supervisa señales de estado y registra resultados.
-- **iCesDuck:** ejecuta la lógica programada, administra las interfaces de entrada/salida y proporciona acceso a los bloques ADC, DAC, memoria, reloj y expansión.
+El flujo comienza en la Raspberry Pi, donde el usuario desarrolla el diseño en **Verilog o VHDL**. Mediante **APIO**, **Yosys**, **nextpnr** e **IceStorm**, el código HDL se sintetiza y se convierte en un archivo binario de configuración. Posteriormente, una herramienta de carga transforma el archivo generado al formato requerido y lo transmite por **SPI**, utilizando los GPIO de la Raspberry Pi, hacia la FPGA y la memoria de configuración de iCesDuck.
 
-La interfaz **SPI** se utiliza principalmente para la configuración de la FPGA. Las interfaces **UART** e **I²C** quedan disponibles para comunicación, control de periféricos y transferencia de datos durante la ejecución.
+Una vez programada, la plataforma ejecuta el diseño directamente en hardware y permite utilizar sus recursos integrados:
+
+- FPGA **Lattice iCE40UP5K**.
+- Memoria de configuración.
+- Convertidores **ADC** y **DAC**.
+- Adaptador de nivel lógico **VLOGIC**.
+- Reloj de **48 MHz**.
+- Conector de expansión **FFC/FPC**.
+- GPIO de comunicación y control.
+
+<p align="center">
+  <img
+    src="docs/assets/diagrams/ICD-DGM_02.png"
+    alt="Flujo de síntesis, programación, ejecución y comunicación de iCesDuck"
+    width="620"
+  >
+</p>
+
+<p align="center">
+  <em>
+    Flujo general desde el diseño HDL en la Raspberry Pi 4B hasta la ejecución y comunicación con la plataforma iCesDuck.
+  </em>
+</p>
+
+### Función de cada elemento
+
+- **Raspberry Pi 4B:** proporciona el entorno de desarrollo, sintetiza el diseño HDL, genera los archivos de configuración, controla la programación mediante GPIO y supervisa el funcionamiento del sistema.
+- **Interfaz SPI:** constituye el enlace principal para transferir la configuración hacia la FPGA y la memoria no volátil.
+- **Plataforma iCesDuck:** almacena y ejecuta la lógica programada, además de proporcionar acceso a los periféricos, señales y conectores de expansión.
+- **Interfaces de operación:** una vez cargado el diseño, la comunicación entre la Raspberry Pi, la FPGA y otros dispositivos puede realizarse mediante **UART**, **I²C**, **SPI** y GPIO directo.
+
+Esta organización separa el proceso de desarrollo del proceso de ejecución: la Raspberry Pi administra la síntesis y la programación, mientras que iCesDuck implementa el diseño digital en hardware y mantiene disponibles sus recursos de adquisición, generación y adaptación de señales.
 
 ### Componentes principales
 
-#### Raspberry Pi 4B
+<p>La arquitectura distribuye sus funciones entre el sistema anfitrión y el dispositivo programable:</p>
 
-La Raspberry Pi proporciona:
+<table>
+<tr>
+<td width="50%" valign="top">
 
-- Entorno de desarrollo y compilación.
-- Síntesis de Verilog y VHDL.
-- Generación del archivo `hardware.bin`.
-- Programación de la FPGA.
-- Supervisión de señales como `CDONE`.
-- Registro y depuración en tiempo real.
+<p align="center">
+  <img
+    src="docs/assets/images/ICD-IMG-RPI4B.png"
+    alt="Raspberry Pi 4B"
+    width="130"
+  >
+</p>
 
-#### FPGA Lattice iCE40UP5K
+<h4 align="center">Raspberry Pi 4B</h4>
+<p align="center"><strong>Host de desarrollo, programación y supervisión</strong></p>
+<hr>
 
-La FPGA proporciona:
+<ul>
+<li>Proporciona el entorno de desarrollo y compilación.</li>
+<li>Procesa diseños escritos en <strong>Verilog</strong> y <strong>VHDL</strong>.</li>
+<li>Ejecuta la síntesis mediante APIO, Yosys, nextpnr e IceStorm.</li>
+<li>Genera el archivo <code>hardware.bin</code>.</li>
+<li>Convierte la configuración al formato requerido para la carga.</li>
+<li>Programa la FPGA y la memoria mediante SPI sobre GPIO.</li>
+<li>Supervisa señales de estado como <code>CDONE</code>.</li>
+<li>Permite controlar y depurar el sistema en tiempo real.</li>
+</ul>
 
-- 5,280 LUTs para lógica combinacional y secuencial.
-- 128 KB de SRAM.
-- Multiplicadores embebidos.
-- PLL para generación y ajuste de frecuencias.
-- Compatibilidad con herramientas de síntesis de código abierto.
+<p align="center">
+<kbd>Desarrollo</kbd>
+<kbd>Síntesis</kbd>
+<kbd>Programación</kbd>
+<kbd>Supervisión</kbd>
+</p>
 
+</td>
+
+<td width="50%" valign="top">
+
+<p align="center">
+  <img
+    src="docs/assets/images/ICD-IMG-ICE40UP5K.png"
+    alt="FPGA Lattice iCE40UP5K"
+    width="100"
+  >
+</p>
+
+<h4 align="center">FPGA Lattice iCE40UP5K</h4>
+<p align="center"><strong>Unidad de ejecución de lógica digital</strong></p>
+<hr>
+
+<ul>
+<li>Implementa el diseño sintetizado directamente en hardware.</li>
+<li>Integra <strong>5,280 LUTs</strong> para lógica combinacional y secuencial.</li>
+<li>Dispone de <strong>128 KB de SRAM</strong> interna.</li>
+<li>Incluye multiplicadores embebidos para procesamiento digital.</li>
+<li>Incorpora PLL para generación y ajuste de frecuencias.</li>
+<li>Controla los periféricos y señales internas de la plataforma.</li>
+<li>Interactúa con ADC, DAC, VLOGIC, reloj y expansión FFC/FPC.</li>
+<li>Es compatible con herramientas de síntesis de código abierto.</li>
+</ul>
+
+<p align="center">
+<kbd>Ejecución</kbd>
+<kbd>Lógica digital</kbd>
+<kbd>Periféricos</kbd>
+<kbd>Expansión</kbd>
+</p>
+
+</td>
+</tr>
+</table>
+
+> La Raspberry Pi prepara, programa y supervisa el sistema; la FPGA convierte el diseño sintetizado en lógica digital ejecutándose directamente sobre hardware.
 ---
 
 ## Flujo de trabajo
