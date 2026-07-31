@@ -279,6 +279,24 @@ Esta organización separa el proceso de desarrollo del proceso de ejecución: la
 
 ## Flujo de trabajo
 
+El proceso de desarrollo de iCesDuck se organiza en seis etapas: diseño HDL, síntesis, generación del bitstream, carga, ejecución y supervisión.
+
+<p align="center">
+  <img
+    src="docs/assets/diagrams/ICD-DGM_03.png"
+    alt="Flujo de trabajo de síntesis, programación, ejecución y supervisión de iCesDuck"
+    width="720"
+  >
+</p>
+
+<p align="center">
+  <em>
+    Flujo general desde el desarrollo del código HDL hasta la ejecución y validación del diseño sobre hardware real.
+  </em>
+</p>
+
+### Etapas del proceso
+
 1. **Diseño HDL:** el usuario desarrolla el proyecto en Verilog o VHDL.
 2. **Síntesis:** APIO, Yosys y nextpnr procesan el diseño.
 3. **Generación:** se produce el bitstream `hardware.bin`.
@@ -286,7 +304,7 @@ Esta organización separa el proceso de desarrollo del proceso de ejecución: la
 5. **Ejecución:** la FPGA implementa la lógica programada.
 6. **Supervisión:** la Raspberry Pi verifica señales de estado y registra resultados.
 
-Este flujo facilita ciclos rápidos de diseño, prueba, corrección y validación sobre hardware real.
+> Este flujo facilita ciclos rápidos de diseño, prueba, corrección y validación sobre hardware real.
 
 ---
 
