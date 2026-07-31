@@ -133,7 +133,7 @@ El repositorio se divide por áreas para separar el diseño físico, el software
 
 | Área | Contenido |
 |---|---|
-| [`hardware/`](hardware/) | Revisiones del PCB, fuentes de EasyEDA, archivos de fabricación, exportaciones y validaciones. |
+| [`hardware/boards`](hardware/) | Revisiones del PCB, fuentes de EasyEDA, archivos de fabricación, exportaciones y validaciones. |
 | [`software/`](software/) | Herramientas ejecutadas en Raspberry Pi, incluido el cargador de la FPGA. |
 | [`hdl/`](hdl/) | Diseños Verilog/VHDL, restricciones, testbench y bitstreams. |
 | [`examples/`](examples/) | Ejemplos funcionales y proyectos demostrativos. |
