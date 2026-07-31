@@ -208,9 +208,9 @@ Esta organización separa el proceso de desarrollo del proceso de ejecución: la
 
 <p align="center">
   <img
-    src="docs/assets/images/ICD-IMG-RPI4B.png"
+    src="docs/assets/images/IMG_RPB_A1.png"
     alt="Raspberry Pi 4B"
-    width="130"
+    width="170"
   >
 </p>
 
@@ -242,9 +242,9 @@ Esta organización separa el proceso de desarrollo del proceso de ejecución: la
 
 <p align="center">
   <img
-    src="docs/assets/images/ICD-IMG-ICE40UP5K.png"
+    src="docs/assets/images/IMG_ICE_A1.png"
     alt="FPGA Lattice iCE40UP5K"
-    width="100"
+    width="110"
   >
 </p>
 
