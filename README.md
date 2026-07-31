@@ -46,19 +46,74 @@ La placa incorpora recursos para trabajar con señales digitales y mixtas, entre
 
 ## Características principales
 
-| Característica | Especificación |
-|---|---|
-| **FPGA** | Lattice iCE40UP5K |
-| **Capacidad lógica** | 5,280 LUTs |
-| **Memoria interna** | 128 KB de SRAM |
-| **Compatibilidad** | Raspberry Pi 4B |
-| **Nivel lógico principal** | 3.3 V |
-| **Interfaces** | SPI, I²C y UART |
-| **Conversión de señales** | ADC y DAC integrados |
-| **Reloj** | 48 MHz |
-| **Lenguajes HDL** | Verilog y VHDL |
-| **Toolchain** | APIO, Yosys, nextpnr e IceStorm |
-| **Expansión** | GPIO espejo y conector FFC/FPC |
+<table>
+  <thead>
+    <tr>
+      <th width="20%" align="left">Característica</th>
+      <th width="24%" align="left">Especificación</th>
+      <th width="48%" align="center"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>FPGA</strong></td>
+      <td>Lattice iCE40UP5K</td>
+      <td rowspan="11" align="center" valign="middle">
+        <img
+          src="docs/assets/diagrams/ICD-DGM_01.png"
+          alt="Distribución de los principales componentes de iCesDuck"
+          width="600"
+        >
+        <br>
+        <sub>
+          <em>
+            Distribución general de los principales bloques electrónicos de la placa.
+          </em>
+        </sub>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Capacidad lógica</strong></td>
+      <td>5,280 LUTs</td>
+    </tr>
+    <tr>
+      <td><strong>Memoria interna</strong></td>
+      <td>128 KB de SRAM</td>
+    </tr>
+    <tr>
+      <td><strong>Compatibilidad</strong></td>
+      <td>Raspberry Pi 4B</td>
+    </tr>
+    <tr>
+      <td><strong>Nivel lógico principal</strong></td>
+      <td>3.3 V</td>
+    </tr>
+    <tr>
+      <td><strong>Interfaces</strong></td>
+      <td>SPI, I²C y UART</td>
+    </tr>
+    <tr>
+      <td><strong>Conversión de señales</strong></td>
+      <td>ADC y DAC integrados</td>
+    </tr>
+    <tr>
+      <td><strong>Reloj</strong></td>
+      <td>48 MHz</td>
+    </tr>
+    <tr>
+      <td><strong>Lenguajes HDL</strong></td>
+      <td>Verilog y VHDL</td>
+    </tr>
+    <tr>
+      <td><strong>Toolchain</strong></td>
+      <td>APIO, Yosys, nextpnr e IceStorm</td>
+    </tr>
+    <tr>
+      <td><strong>Expansión</strong></td>
+      <td>GPIO espejo y conector FFC/FPC</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
