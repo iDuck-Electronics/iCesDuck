@@ -1,55 +1,96 @@
 # iCesDuck
 
 <p align="center">
-  <img src="docs/.resources/img/ICD-IMG_01.png" alt="iCesDuck – Presentacion" width="720">
+  <img
+    src="docs/assets/images/ICD-IMG_01.png"
+    alt="iCesDuck — Plataforma FPGA para Raspberry Pi 4B"
+    width="720"
+  >
 </p>
-
-## Introducción
-
-**iCesDuck** es una placa de desarrollo integrada diseñada para facilitar la implementación de diseños digitales complejos mediante la FPGA **Lattice iCE40UP5K**. Permite trasladar proyectos desde simulación HDL hasta hardware real utilizando **Verilog** y **VHDL**, con la **Raspberry Pi 4B** como entorno de síntesis, carga y supervisión.
-
-La placa integra de manera modular una **FPGA programable**, **convertidores analógico-digital (ADC)** y **digital-analógico (DAC)**, así como **adaptadores de nivel lógico** para garantizar compatibilidad de voltajes en el ecosistema de señales mixtas. Esta arquitectura permite experimentación sistematizada sin depender de conexionados improvisados, proporcionando una solución robusta y documentada para prototipado e investigación.
 
 <p align="center">
-  <img src="docs/.resources/img/ICD-IMG_02.png" alt="iCesDuck – Placa FPGA para Raspberry Pi 4B" width="420">
+  <strong>Plataforma FPGA de código abierto para Raspberry Pi 4B</strong><br>
+  Síntesis, programación y supervisión de lógica digital en una arquitectura compacta, modular y orientada a la experimentación.
 </p>
-
-La comunicación entre la Raspberry Pi e iCesDuck se establece mediante interfaz **SPI**, utilizada para la configuración y carga del bitstream en la FPGA. Adicionalmente, la placa expone canales de comunicación paralela mediante **UART** e **I²C** para intercambio de datos en tiempo real y control de periféricos integrados.
-
-El acceso a señales y entradas/salidas se facilita a través de pines hembra espejo compatibles con el conector GPIO de la Raspberry Pi, complementados por un conector **FFC/FPC (flexible)** dedicado que proporciona acceso directo a drivers y nodos de alta impedancia de la FPGA.
 
 ---
 
-### Características principales
+## Descripción general
+
+**iCesDuck** es una placa de desarrollo basada en la FPGA **Lattice iCE40UP5K**, diseñada para trasladar proyectos escritos en **Verilog** y **VHDL** desde la simulación HDL hasta su ejecución en hardware real.
+
+La **Raspberry Pi 4B** funciona como sistema anfitrión y entorno principal de trabajo: realiza la síntesis, genera el bitstream, programa la FPGA y supervisa el comportamiento de la plataforma. Esta integración permite desarrollar, probar y depurar diseños digitales sin depender de herramientas propietarias o programadores externos especializados.
+
+La placa incorpora recursos para trabajar con señales digitales y mixtas, entre ellos:
+
+- FPGA programable **Lattice iCE40UP5K**.
+- Convertidores **ADC** y **DAC**.
+- Adaptadores de nivel lógico.
+- Memoria de configuración.
+- Reloj de **48 MHz**.
+- Comunicación mediante **SPI**, **I²C** y **UART**.
+- Conector **FFC/FPC** para expansión y acceso a señales externas.
+- Conector GPIO espejo compatible con Raspberry Pi 4B.
+
+<p align="center">
+  <img
+    src="docs/assets/images/ICD-IMG_02.png"
+    alt="Vista frontal y posterior de la placa iCesDuck"
+    width="560"
+  >
+</p>
+
+> **Objetivo del proyecto:** ofrecer una plataforma abierta y documentada para aprender, investigar y prototipar sistemas digitales con FPGA, utilizando la Raspberry Pi como unidad de desarrollo, programación y supervisión.
+
+---
+
+## Características principales
 
 | Característica | Especificación |
 |---|---|
-| **FPGA** | Lattice iCE40UP5K (5.3K LUTs, 128 KB SRAM) |
-| **Compatibilidad** | Raspberry Pi 4B (ARM Cortex-A72, GPIO de 3.3 V) |
-| **Interfaces de comunicación** | SPI, I²C, UART |
-| **Conversión de señales** | ADC/DAC integrados con drivers de nivel lógico |
-| **Herramientas de síntesis** | Toolchain de código abierto (APIO + IceStorm) |
-| **Lenguajes soportados** | Verilog, VHDL |
-| **Expansión** | Conector FFC/FPC para módulos externos |
+| **FPGA** | Lattice iCE40UP5K |
+| **Capacidad lógica** | 5,280 LUTs |
+| **Memoria interna** | 128 KB de SRAM |
+| **Compatibilidad** | Raspberry Pi 4B |
+| **Nivel lógico principal** | 3.3 V |
+| **Interfaces** | SPI, I²C y UART |
+| **Conversión de señales** | ADC y DAC integrados |
+| **Reloj** | 48 MHz |
+| **Lenguajes HDL** | Verilog y VHDL |
+| **Toolchain** | APIO, Yosys, nextpnr e IceStorm |
+| **Expansión** | GPIO espejo y conector FFC/FPC |
 
 ---
 
-### Aplicaciones
+## Aplicaciones
 
-- **Educación**: Laboratorios de sistemas digitales, arquitectura de computadores y electrónica embebida
-- **Investigación**: Prototipado de controladores, interfaces y lógica de propósito específico
-- **Prototipado industrial**: Validación de diseños antes de síntesis en ASIC o FPGA comercial
-- **Depuración de HDL**: Ejecución de pruebas unitarias en hardware real con trazabilidad mediante Raspberry Pi
+- **Educación:** laboratorios de sistemas digitales, FPGA, arquitectura de computadores y electrónica embebida.
+- **Investigación:** validación de controladores, interfaces digitales y lógica de propósito específico.
+- **Prototipado:** pruebas funcionales antes de migrar un diseño a otra FPGA o a una solución dedicada.
+- **Depuración HDL:** ejecución de testbench, comparación de resultados y validación en hardware real.
+- **Señales mixtas:** adquisición, procesamiento y generación de señales mediante ADC, DAC y adaptadores de nivel.
 
 ---
 
-### Origen y visión del proyecto
+## Navegación del repositorio
 
-iCesDuck nace como iniciativa de democratizar el acceso a **herramientas de síntesis HDL de código abierto**, permitiendo a investigadores, estudiantes y profesionales verificar diseños **Verilog** y **VHDL** en hardware real sin depender de soluciones propietarias. 
+El repositorio se divide por áreas para separar el diseño físico, el software, la lógica HDL, las pruebas y la documentación.
 
-El proyecto integra la FPGA **iCE40UP5K** con un entorno de cómputo accesible (Raspberry Pi 4B), facilitando la **síntesis**, **configuración** y **supervisión** de lógica digital en una única plataforma compacta. De este modo, iCesDuck cierra la brecha entre simulación y hardware, proporcionando una solución educativa y profesional para laboratorios, centros de investigación y proyectos de ingeniería de controladores embebidos.
+| Área | Contenido |
+|---|---|
+| [`hardware/`](hardware/) | Revisiones del PCB, fuentes de EasyEDA, archivos de fabricación, exportaciones y validaciones. |
+| [`software/`](software/) | Herramientas ejecutadas en Raspberry Pi, incluido el cargador de la FPGA. |
+| [`hdl/`](hdl/) | Diseños Verilog/VHDL, restricciones, testbench y bitstreams. |
+| [`examples/`](examples/) | Ejemplos funcionales y proyectos demostrativos. |
+| [`tests/`](tests/) | Pruebas de hardware, software y lógica HDL. |
+| [`docs/`](docs/) | Arquitectura, instalación, protocolos, hardware, red y recursos técnicos. |
 
-Actualmente, el proyecto se encuentra en fase de **maduración técnica**, con secciones de firmware, hardware y documentación que se refinan continuamente. Se fomenta la contribución de la comunidad para **validar, replicar, adaptar y mejorar** todos los componentes, preservando el carácter abierto y colaborativo de la iniciativa.
+### Revisiones de hardware
+
+| Revisión | Estado | Ubicación |
+|---|---|---|
+| **V1.A1** | Primera revisión funcional con errores identificados | [`hardware/boards/v1-a1/`](hardware/boards/v1-a1/) |
+| **V2.A1** | Revisión en desarrollo | [`hardware/boards/v2-a1/`](hardware/boards/v2-a1/) |
 
 ---
 
@@ -57,114 +98,111 @@ Actualmente, el proyecto se encuentra en fase de **maduración técnica**, con s
 
 | Fecha | Versión | Estado | Notas |
 |---|---|---|---|
-| **05-03-2025** | **V1.A1** | Funcional | Placa ensamblada. FPGA operativa con bitstream verificado. Reguladores (3.3 V/1.2 V) estables. CLK @ 48 MHz validado. Pendiente validación de ADC/DAC. EEPROM requiere persistencia de configuración. |
-
-| **17-09-2025** | **V1.A1** | Fallo detectado | Lineas de Comunicacion entre la EEPROM, y GPIO-Raspberry Pi 4B cruzdas de forma herronea. FPGA si se programa de forma directa, no mantiene el codigo despues de un reinicio.  |
-
-| **03-08-2026** | **V1.A2** | En desarrollo | Mejora en Lineas de Comunicacion, drivers SPI/I²C/UART, documentación técnica ampliada, ejemplos funcionales. |
+| **05-03-2025** | **V1.A1** | Funcional | Placa ensamblada, FPGA programada correctamente, reguladores de 3.3 V y 1.2 V estables y reloj de 48 MHz validado. ADC y DAC pendientes de validación completa. |
+| **17-09-2025** | **V1.A1** | Fallo identificado | Se detectó un cruce incorrecto en líneas de comunicación relacionadas con la memoria de configuración y los GPIO de la Raspberry Pi 4B. La FPGA puede programarse directamente, pero no conserva la configuración después de un reinicio. |
+| **Planificada: 03-08-2026** | **V2.A1** | En desarrollo | Corrección de líneas de comunicación, revisión de SPI, I²C y UART, ampliación de documentación y preparación de nuevos ejemplos funcionales. |
 
 ---
 
 ## Arquitectura del sistema
 
-La plataforma iCesDuck está estructurada en torno a una arquitectura maestro-esclavo, donde la **Raspberry Pi 4B** actúa como unidad de control principal (síntesis, compilación, programación) y **iCesDuck** como módulo especializado para ejecución de lógica digital. Esta separación funcional garantiza máxima flexibilidad:
+iCesDuck utiliza una arquitectura **host-dispositivo**:
 
-- **Raspberry Pi 4B**: Procesamiento HDL, gestión de bitstream, supervisión y depuración
-- **iCesDuck**: Ejecución de lógica digital, conversión analógica-digital, interfaz de entrada/salida
+- **Raspberry Pi 4B:** sintetiza el diseño HDL, genera el bitstream, controla la carga de la FPGA, supervisa señales de estado y registra resultados.
+- **iCesDuck:** ejecuta la lógica programada, administra las interfaces de entrada/salida y proporciona acceso a los bloques ADC, DAC, memoria, reloj y expansión.
+
+La interfaz **SPI** se utiliza principalmente para la configuración de la FPGA. Las interfaces **UART** e **I²C** quedan disponibles para comunicación, control de periféricos y transferencia de datos durante la ejecución.
 
 ### Componentes principales
 
-#### Raspberry Pi 4B – Núcleo de procesamiento
+#### Raspberry Pi 4B
 
-La **Raspberry Pi 4B** proporciona capacidad de cómputo ARM para:
-- Síntesis de código Verilog/VHDL mediante herramientas de código abierto (APIO, IceStorm)
-- Generación del archivo de configuración (bitstream: `hardware.bin`)
-- Control de la interfaz SPI para carga del bitstream en la FPGA
-- Supervisión de líneas de estado (CDONE, señales de error)
-- Depuración y logging en tiempo real
+La Raspberry Pi proporciona:
 
-**Conectividad**: Utiliza pines GPIO de 3.3 V del conector J8 para establecer comunicación directa con iCesDuck sin adaptadores externos.
+- Entorno de desarrollo y compilación.
+- Síntesis de Verilog y VHDL.
+- Generación del archivo `hardware.bin`.
+- Programación de la FPGA.
+- Supervisión de señales como `CDONE`.
+- Registro y depuración en tiempo real.
 
-#### FPGA Lattice iCE40UP5K – Motor de lógica programable
+#### FPGA Lattice iCE40UP5K
 
-La **iCE40UP5K** es el núcleo de iCesDuck, proporcionando:
-- **5,280 Look-Up Tables (LUTs)** para implementación de lógica combinacional y secuencial
-- **128 KB de SRAM** para memoria de datos y control
-- **Multiplicadores embebidos** para operaciones aritméticas eficientes
-- **Phase-Locked Loop (PLL)** para síntesis de frecuencias
-- Compatibilidad con herramientas de síntesis de código abierto ([APIO](https://github.com/FPGAwars/apio), [IceStorm](http://www.clifford.at/icestorm/))
+La FPGA proporciona:
 
-El bitstream se carga mediante protocolo SPI bit-banging desde la Raspberry Pi, permitiendo reprogramación sin herramientas especializadas.
-  
-## Funcionamiento
-
-El flujo de trabajo en iCesDuck sigue estos pasos secuenciales:
-
-1. **Síntesis HDL**: El usuario escribe código Verilog/VHDL en su sistema
-2. **Compilación**: APIO sintetiza el código y genera `hardware.bin` (bitstream)
-3. **Conversión**: El programa C convierte `hardware.bin` a vector hexadecimal (`bitmap[]`)
-4. **Carga**: La Raspberry Pi transmite el bitstream a la FPGA mediante SPI bit-banging
-5. **Ejecución**: La FPGA ejecuta la lógica programada
-6. **Supervisión**: Raspberry Pi monitorea líneas de control y depura en tiempo real
-
-Este ciclo permite iteración rápida entre diseño, validación y depuración sin requerir herramientas costosas o procesos complejos.
+- 5,280 LUTs para lógica combinacional y secuencial.
+- 128 KB de SRAM.
+- Multiplicadores embebidos.
+- PLL para generación y ajuste de frecuencias.
+- Compatibilidad con herramientas de síntesis de código abierto.
 
 ---
 
----
+## Flujo de trabajo
 
-## Créditos y contribuciones
+1. **Diseño HDL:** el usuario desarrolla el proyecto en Verilog o VHDL.
+2. **Síntesis:** APIO, Yosys y nextpnr procesan el diseño.
+3. **Generación:** se produce el bitstream `hardware.bin`.
+4. **Carga:** la Raspberry Pi transmite el bitstream hacia la FPGA mediante SPI.
+5. **Ejecución:** la FPGA implementa la lógica programada.
+6. **Supervisión:** la Raspberry Pi verifica señales de estado y registra resultados.
 
-### Autor/es
-
-**iCesDuck** fue desarrollado como proyecto de investigación en el contexto de sistemas digitales y electrónica embebida de código abierto.
-
-### Contribuciones
-
-Se alienta la contribución de la comunidad mediante:
-- Reportes de bugs y solicitudes de mejora
-- Aporte de nuevos ejemplos y tutoriales
-- Optimización de código y documentación
-- Validación en diferentes versiones de hardware y SO
-
-### Agradecimientos
-
-Agradecemos especialmente a:
-- **FPGAwars** por APIO y herramientas de síntesis
-- **Clifford Wolf** por el proyecto IceStorm
-- Comunidad de código abierto y entusiastas de FPGA
-
-### Licencia
-
-Este proyecto se distribuye bajo licencia abierta. Consultar `LICENSE` para detalles completos.
+Este flujo facilita ciclos rápidos de diseño, prueba, corrección y validación sobre hardware real.
 
 ---
 
-## Recursos adicionales
+## Visión del proyecto
 
-### Documentación técnica
+iCesDuck nace con el propósito de acercar el desarrollo con FPGA a estudiantes, investigadores y profesionales mediante una plataforma abierta, accesible y reproducible.
 
-- [Hoja de datos iCE40UP5K](http://www.latticesemi.com/)
-- [GPIO Raspberry Pi](https://www.raspberrypi.org/documentation/computers/gpio/)
-- [Verilog HDL Tutorial](https://www.verilogtutor.com/)
-- [APIO Documentación](https://github.com/FPGAwars/apio/wiki)
+El proyecto busca reducir la separación entre la simulación HDL y la implementación física, integrando en una sola plataforma la síntesis, la programación, la supervisión y el acceso a señales digitales y mixtas.
 
-### Comunidades y foros
-
-- [FPGAwars Forum](https://github.com/FPGAwars)
-- [Raspberry Pi Forums](https://www.raspberrypi.org/forums/)
-- [Stack Overflow FPGA](https://stackoverflow.com/questions/tagged/fpga)
-
-### Proyectos relacionados
-
-- [IceStorm](http://www.clifford.at/icestorm/)
-- [Yosys](http://www.clifford.at/yosys/)
-- [NextPnR](https://github.com/YosysHQ/nextpnr)
+Actualmente, iCesDuck se encuentra en una etapa de **maduración técnica**. Las revisiones de hardware, el software de carga, los ejemplos y la documentación continúan evolucionando conforme se validan nuevos bloques y se corrigen los problemas identificados en versiones anteriores.
 
 ---
 
-**Última actualización**: Febrero 2026  
-**Estado**: En desarrollo activo  
-**Versión del documento**: 1.0
+## Contribuciones
 
+Las contribuciones pueden incluir:
 
+- Reportes de errores.
+- Validación de nuevas revisiones de hardware.
+- Mejoras en el cargador de la FPGA.
+- Ejemplos Verilog o VHDL.
+- Testbench y pruebas automatizadas.
+- Correcciones y ampliaciones de documentación.
+
+Antes de realizar cambios importantes, revisa la estructura del repositorio y procura mantener separadas las áreas de hardware, software, HDL, pruebas y documentación.
+
+---
+
+## Agradecimientos
+
+- **FPGAwars**, por APIO y su ecosistema de herramientas.
+- **Clifford Wolf**, por IceStorm y Yosys.
+- **YosysHQ**, por nextpnr y herramientas relacionadas.
+- Comunidad de hardware y software de código abierto.
+
+---
+
+## Recursos externos
+
+- [Lattice Semiconductor](https://www.latticesemi.com/)
+- [APIO](https://github.com/FPGAwars/apio)
+- [Project IceStorm](https://github.com/YosysHQ/icestorm)
+- [Yosys](https://github.com/YosysHQ/yosys)
+- [nextpnr](https://github.com/YosysHQ/nextpnr)
+- [Documentación de GPIO de Raspberry Pi](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)
+
+---
+
+## Licencia
+
+Este proyecto se distribuye bajo una licencia abierta. Consulta el archivo [`LICENSE`](LICENSE) para conocer sus términos y condiciones.
+
+---
+
+<p align="center">
+  <strong>iCesDuck</strong><br>
+  FPGA · Raspberry Pi · Verilog · VHDL · Open Source
+</p>
