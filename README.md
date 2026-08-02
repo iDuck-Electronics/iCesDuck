@@ -62,7 +62,7 @@ La placa incorpora recursos para trabajar con señales digitales y mixtas, entre
         <img
           src="docs/assets/diagrams/ICD-DGM_01.png"
           alt="Distribución de los principales componentes de iCesDuck"
-          width="600"
+          width=100%
         >
         <br>
         <sub>
@@ -133,19 +133,19 @@ El repositorio se divide por áreas para separar el diseño físico, el software
 
 | Área | Contenido |
 |---|---|
-| [`hardware/boards`](hardware/) | Revisiones del PCB, fuentes de EasyEDA, archivos de fabricación, exportaciones y validaciones. |
-| [`software/`](software/) | Herramientas ejecutadas en Raspberry Pi, incluido el cargador de la FPGA. |
-| [`hdl/`](hdl/) | Diseños Verilog/VHDL, restricciones, testbench y bitstreams. |
-| [`examples/`](examples/) | Ejemplos funcionales y proyectos demostrativos. |
-| [`tests/`](tests/) | Pruebas de hardware, software y lógica HDL. |
-| [`docs/`](docs/) | Arquitectura, instalación, protocolos, hardware, red y recursos técnicos. |
+| [`iCesDuck`](hardware/boards-iCesDuck/README.md) | Revisiones del PCB, fuentes de EasyEDA, archivos de fabricación, exportaciones y validaciones. |
+| [`iDuck-Upload`](software/README.md) | Herramientas ejecutadas en Raspberry Pi, cargador del bistream a la FPGA. |
+| [`HDL`](hdl/) | Diseños Verilog/VHDL, restricciones, testbench y bitstreams. |
+| [`Exaples`](examples/) | Ejemplos funcionales y proyectos demostrativos. |
+| [`Test`](tests/) | Pruebas de hardware, software y lógica HDL. |
+| [`Document`](docs/) | Arquitectura, instalación, protocolos, hardware, red y recursos técnicos. |
 
 ### Revisiones de hardware
 
 | Revisión | Estado | Ubicación |
 |---|---|---|
-| **V1.A1** | Primera revisión funcional con errores identificados | [`hardware/boards/v1-a1/`](hardware/boards/v1-a1/) |
-| **V2.A1** | Revisión en desarrollo | [`hardware/boards/v2-a1/`](hardware/boards/v2-a1/) |
+| **V1.A1** | Primera revisión funcional con errores identificados | [`iCesDuck-v1-A1`](hardware/boards/v1-a1/) |
+| **V1.A2** | Revisión en desarrollo | [`iCesDuck-v1-A2`](hardware/boards/v2-a1/) |
 
 ---
 
@@ -155,7 +155,7 @@ El repositorio se divide por áreas para separar el diseño físico, el software
 |---|---|---|---|
 | **05-03-2025** | **V1.A1** | Funcional | Placa ensamblada, FPGA programada correctamente, reguladores de 3.3 V y 1.2 V estables y reloj de 48 MHz validado. ADC y DAC pendientes de validación completa. |
 | **17-09-2025** | **V1.A1** | Fallo identificado | Se detectó un cruce incorrecto en líneas de comunicación relacionadas con la memoria de configuración y los GPIO de la Raspberry Pi 4B. La FPGA puede programarse directamente, pero no conserva la configuración después de un reinicio. |
-| **Planificada: 03-08-2026** | **V2.A1** | En desarrollo | Corrección de líneas de comunicación, revisión de SPI, I²C y UART, ampliación de documentación y preparación de nuevos ejemplos funcionales. |
+| **Planificada: 03-08-2026** | **V1.A2** | En desarrollo | Corrección de líneas de comunicación, revisión de SPI, I²C y UART, ampliación de documentación y preparación de nuevos ejemplos funcionales. |
 
 ---
 
@@ -313,6 +313,20 @@ El proceso de desarrollo de iCesDuck se organiza en seis etapas: diseño HDL, s�
 iCesDuck nace con el propósito de acercar el desarrollo con FPGA a estudiantes, investigadores y profesionales mediante una plataforma abierta, accesible y reproducible.
 
 El proyecto busca reducir la separación entre la simulación HDL y la implementación física, integrando en una sola plataforma la síntesis, la programación, la supervisión y el acceso a señales digitales y mixtas.
+
+<p align="center">
+  <img
+    src="docs/assets/images/ICD-IMG_03.png"
+    alt="Entorno de desarrollo, programación y validación de iCesDuck con Raspberry Pi 4B y equipo de laboratorio"
+    width="920"
+  >
+</p>
+
+<p align="center">
+  <em>
+    iCesDuck integra el desarrollo HDL, la programación de la FPGA y la validación de señales sobre hardware real.
+  </em>
+</p>
 
 Actualmente, iCesDuck se encuentra en una etapa de **maduración técnica**. Las revisiones de hardware, el software de carga, los ejemplos y la documentación continúan evolucionando conforme se validan nuevos bloques y se corrigen los problemas identificados en versiones anteriores.
 
