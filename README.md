@@ -9,9 +9,18 @@
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Estado-desarrollo_activo-245AA5?style=flat-square" alt="Estado: desarrollo activo">
+  <img src="https://img.shields.io/badge/FPGA-iCE40UP5K-245AA5?style=flat-square" alt="FPGA Lattice iCE40UP5K">
+  <img src="https://img.shields.io/badge/Host-Raspberry_Pi_4B-245AA5?style=flat-square" alt="Host Raspberry Pi 4B">
+  <img src="https://img.shields.io/badge/HDL-Verilog_%7C_VHDL-245AA5?style=flat-square" alt="Verilog y VHDL">
+</p>
+
+<p align="center">
   <strong>Plataforma FPGA de código abierto para Raspberry Pi 4B</strong><br>
   Síntesis, programación y supervisión de lógica digital en una arquitectura compacta, modular y orientada a la experimentación.
 </p>
+
+
 
 ---
 
@@ -42,6 +51,45 @@ La placa incorpora recursos para trabajar con señales digitales y mixtas, entre
 
 > **Objetivo del proyecto:** ofrecer una plataforma abierta y documentada para aprender, investigar y prototipar sistemas digitales con FPGA, utilizando la Raspberry Pi como unidad de desarrollo, programación y supervisión.
 
+<p align="center">
+  <a href="docs/README.md">
+    <img
+      src="https://img.shields.io/badge/COMENZAR-Guía_de_inicio-0B1F3A?style=for-the-badge&amp;labelColor=4A4A4A"
+      alt="Comenzar con iCesDuck"
+    >
+  </a>
+  &nbsp;
+  <a href="hardware/README.md">
+    <img
+      src="https://img.shields.io/badge/HARDWARE-Diseño_de_la_placa-0B1F3A?style=for-the-badge&amp;labelColor=4A4A4A"
+      alt="Hardware de iCesDuck"
+    >
+  </a>
+  &nbsp;
+  <a href="software/README.md">
+    <img
+      src="https://img.shields.io/badge/SOFTWARE-iDuck--Upload-0B1F3A?style=for-the-badge&amp;labelColor=4A4A4A"
+      alt="Software iDuck-Upload"
+    >
+  </a>
+</p>
+
+<p align="center">
+  <a href="examples/README.md">
+    <img
+      src="https://img.shields.io/badge/EJEMPLOS-Proyectos_HDL--Verilog-17365D?style=for-the-badge&amp;labelColor=4A4A4A"
+      alt="Ejemplos y proyectos HDL"
+    >
+  </a>
+  &nbsp;
+  <a href="tests/README.md">
+    <img
+      src="https://img.shields.io/badge/PRUEBAS-Validación_del_sistema-17365D?style=for-the-badge&amp;labelColor=4A4A4A"
+      alt="Pruebas y validación de iCesDuck"
+    >
+  </a>
+</p>
+
 ---
 
 ## Características principales
@@ -51,7 +99,7 @@ La placa incorpora recursos para trabajar con señales digitales y mixtas, entre
     <tr>
       <th width="20%" align="left">Característica</th>
       <th width="24%" align="left">Especificación</th>
-      <th width="48%" align="center"></th>
+      <th width="48%" align="center">Distribución de componentes</th>
     </tr>
   </thead>
   <tbody>
@@ -62,56 +110,22 @@ La placa incorpora recursos para trabajar con señales digitales y mixtas, entre
         <img
           src="docs/assets/diagrams/ICD-DGM_01.png"
           alt="Distribución de los principales componentes de iCesDuck"
-          width=100%
+          width="100%"
         >
         <br>
-        <sub>
-          <em>
-            Distribución general de los principales bloques electrónicos de la placa.
-          </em>
-        </sub>
+        <sub><em>Distribución general de los principales bloques electrónicos de la placa.</em></sub>
       </td>
     </tr>
-    <tr>
-      <td><strong>Capacidad lógica</strong></td>
-      <td>5,280 LUTs</td>
-    </tr>
-    <tr>
-      <td><strong>Memoria interna</strong></td>
-      <td>128 KB de SRAM</td>
-    </tr>
-    <tr>
-      <td><strong>Compatibilidad</strong></td>
-      <td>Raspberry Pi 4B</td>
-    </tr>
-    <tr>
-      <td><strong>Nivel lógico principal</strong></td>
-      <td>3.3 V</td>
-    </tr>
-    <tr>
-      <td><strong>Interfaces</strong></td>
-      <td>SPI, I²C y UART</td>
-    </tr>
-    <tr>
-      <td><strong>Conversión de señales</strong></td>
-      <td>ADC y DAC integrados</td>
-    </tr>
-    <tr>
-      <td><strong>Reloj</strong></td>
-      <td>48 MHz</td>
-    </tr>
-    <tr>
-      <td><strong>Lenguajes HDL</strong></td>
-      <td>Verilog y VHDL</td>
-    </tr>
-    <tr>
-      <td><strong>Toolchain</strong></td>
-      <td>APIO, Yosys, nextpnr e IceStorm</td>
-    </tr>
-    <tr>
-      <td><strong>Expansión</strong></td>
-      <td>GPIO espejo y conector FFC/FPC</td>
-    </tr>
+    <tr><td><strong>Capacidad lógica</strong></td><td>5,280 LUTs</td></tr>
+    <tr><td><strong>Memoria interna</strong></td><td>128 KB de SRAM</td></tr>
+    <tr><td><strong>Compatibilidad</strong></td><td>Raspberry Pi 4B</td></tr>
+    <tr><td><strong>Nivel lógico principal</strong></td><td>3.3 V</td></tr>
+    <tr><td><strong>Interfaces</strong></td><td>SPI, I²C y UART</td></tr>
+    <tr><td><strong>Conversión de señales</strong></td><td>ADC y DAC integrados</td></tr>
+    <tr><td><strong>Reloj</strong></td><td>48 MHz</td></tr>
+    <tr><td><strong>Lenguajes HDL</strong></td><td>Verilog y VHDL</td></tr>
+    <tr><td><strong>Toolchain</strong></td><td>APIO, Yosys, nextpnr e IceStorm</td></tr>
+    <tr><td><strong>Expansión</strong></td><td>GPIO espejo y conector FFC/FPC</td></tr>
   </tbody>
 </table>
 
@@ -127,25 +141,262 @@ La placa incorpora recursos para trabajar con señales digitales y mixtas, entre
 
 ---
 
-## Navegación del repositorio
+## Revisiones de hardware
 
-El repositorio se divide por áreas para separar el diseño físico, el software, la lógica HDL, las pruebas y la documentación.
-
-| Área | Contenido |
-|---|---|
-| [`iCesDuck`](hardware/boards-iCesDuck/README.md) | Revisiones del PCB, fuentes de EasyEDA, archivos de fabricación, exportaciones y validaciones. |
-| [`iDuck-Upload`](software/README.md) | Herramientas ejecutadas en Raspberry Pi, cargador del bistream a la FPGA. |
-| [`HDL`](hdl/) | Diseños Verilog/VHDL, restricciones, testbench y bitstreams. |
-| [`Exaples`](examples/) | Ejemplos funcionales y proyectos demostrativos. |
-| [`Test`](tests/) | Pruebas de hardware, software y lógica HDL. |
-| [`Document`](docs/) | Arquitectura, instalación, protocolos, hardware, red y recursos técnicos. |
-
-### Revisiones de hardware
+El desarrollo de iCesDuck se mantiene en evolución continua. Conforme se identifiquen errores, se validen nuevos bloques, se incorporen mejoras o se generen nuevas revisiones de hardware, los cambios correspondientes serán documentados y publicados en este repositorio para mantener la trazabilidad técnica del proyecto.
 
 | Revisión | Estado | Ubicación |
 |---|---|---|
-| **V1.A1** | Primera revisión funcional con errores identificados | [`iCesDuck-v1-A1`](hardware/boards/v1-a1/) |
-| **V1.A2** | Revisión en desarrollo | [`iCesDuck-v1-A2`](hardware/boards/v2-a1/) |
+| **V1.A1** | Primera revisión funcional con errores identificados | [`iCesDuck V1.A1`](hardware/boards-iCesDuck/v1-a1/) |
+| **V1.A2** | Segunda revisión en desarrollo | [`iCesDuck V1.A1`](hardware/boards-iCesDuck/v1-a2/) |
+
+---
+
+## Explora iCesDuck
+
+El repositorio está organizado por áreas especializadas. Cada una representa una etapa concreta del desarrollo, desde el diseño electrónico de la placa hasta la creación, programación y validación de proyectos HDL.
+
+> **Ruta recomendada:** comienza con la documentación, ejecuta un ejemplo HDL y después entra al software, al hardware o a las pruebas según el área que quieras desarrollar.
+
+<details>
+<summary>
+  <strong>🔷 Hardware iCesDuck</strong>
+  <code>PCB</code>
+  <code>EasyEDA</code>
+  <code>fabricación</code>
+</summary>
+
+<br>
+
+<div align="center">
+  <img
+    src="docs/assets/navigation/ICD-NAV_01-Hardware.png"
+    alt="Diseño electrónico, revisiones y fabricación de iCesDuck"
+    width="820"
+  >
+  <br>
+  <sub><em>Diseño electrónico, revisiones físicas y recursos para reproducir la plataforma.</em></sub>
+</div>
+
+<br>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/DISEÑO-PCB-17365D?style=flat-square&amp;labelColor=454B54" alt="Diseño PCB">
+  <img src="https://img.shields.io/badge/FUENTES-EasyEDA-17365D?style=flat-square&amp;labelColor=454B54" alt="Fuentes EasyEDA">
+  <img src="https://img.shields.io/badge/SALIDAS-Gerbers_y_modelos-17365D?style=flat-square&amp;labelColor=454B54" alt="Gerbers y modelos">
+</p>
+
+Documenta la evolución física de la plataforma: esquemáticos, PCB, revisiones, modelos 3D, archivos de fabricación y evidencias de validación.
+
+**Úsala para:** estudiar la placa, comparar versiones, recuperar las fuentes originales o preparar el hardware para fabricación.
+
+<p align="right">
+  <a href="hardware/README.md">
+    <img src="https://img.shields.io/badge/EXPLORAR-HARDWARE-0B1F3A?style=for-the-badge&amp;labelColor=454B54" alt="Explorar hardware">
+  </a>
+</p>
+
+</details>
+
+<details>
+<summary>
+  <strong>⚙️ iDuck-Upload</strong>
+  <code>Raspberry Pi</code>
+  <code>SPI</code>
+  <code>programación</code>
+</summary>
+
+<br>
+
+<div align="center">
+  <img
+    src="docs/assets/navigation/ICD-NAV_02-Software.png"
+    alt="Programación y control de iCesDuck desde Raspberry Pi"
+    width="820"
+  >
+  <br>
+  <sub><em>Preparación, conversión y carga de la configuración mediante Raspberry Pi.</em></sub>
+</div>
+
+<br>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/HOST-Raspberry_Pi_4B-17365D?style=flat-square&amp;labelColor=454B54" alt="Raspberry Pi 4B">
+  <img src="https://img.shields.io/badge/INTERFAZ-SPI_sobre_GPIO-17365D?style=flat-square&amp;labelColor=454B54" alt="SPI sobre GPIO">
+  <img src="https://img.shields.io/badge/CARGA-FPGA_y_memoria-17365D?style=flat-square&amp;labelColor=454B54" alt="Carga de FPGA y memoria">
+</p>
+
+Reúne las herramientas utilizadas para preparar, convertir y transmitir la configuración hacia la FPGA y su memoria mediante SPI sobre GPIO.
+
+**Úsala para:** instalar el cargador, configurar pines, convertir archivos y programar iCesDuck desde Raspberry Pi.
+
+<p align="right">
+  <a href="software/README.md">
+    <img src="https://img.shields.io/badge/EXPLORAR-SOFTWARE-0B1F3A?style=for-the-badge&amp;labelColor=454B54" alt="Explorar software">
+  </a>
+</p>
+
+</details>
+
+<details>
+<summary>
+  <strong>🧩 Diseños HDL</strong>
+  <code>Verilog</code>
+  <code>VHDL</code>
+  <code>bitstreams</code>
+</summary>
+
+<br>
+
+<div align="center">
+  <img
+    src="docs/assets/navigation/ICD-NAV_03-HDL.png"
+    alt="Desarrollo de diseños HDL para iCesDuck"
+    width="820"
+  >
+  <br>
+  <sub><em>Diseño, simulación, síntesis y generación de configuraciones para la FPGA.</em></sub>
+</div>
+
+<br>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/CÓDIGO-Verilog-17365D?style=flat-square&amp;labelColor=454B54" alt="Verilog">
+  <img src="https://img.shields.io/badge/CÓDIGO-VHDL-17365D?style=flat-square&amp;labelColor=454B54" alt="VHDL">
+  <img src="https://img.shields.io/badge/SALIDA-hardware.bin-17365D?style=flat-square&amp;labelColor=454B54" alt="hardware.bin">
+</p>
+
+Concentra el código de hardware, las restricciones de pines, los bancos de prueba y los bitstreams producidos para la FPGA Lattice iCE40UP5K.
+
+**Úsala para:** desarrollar lógica digital, simular diseños, definir pines o preparar un proyecto para síntesis.
+
+<p align="right">
+  <a href="hdl/README.md">
+    <img src="https://img.shields.io/badge/EXPLORAR-DISEÑOS_HDL-0B1F3A?style=for-the-badge&amp;labelColor=454B54" alt="Explorar diseños HDL">
+  </a>
+</p>
+
+</details>
+
+<details>
+<summary>
+  <strong>💡 Ejemplos</strong>
+  <code>aprendizaje</code>
+  <code>demostraciones</code>
+  <code>prácticas</code>
+</summary>
+
+<br>
+
+<div align="center">
+  <img
+    src="docs/assets/navigation/ICD-NAV_04-Examples.png"
+    alt="Ejemplos y proyectos demostrativos de iCesDuck"
+    width="820"
+  >
+  <br>
+  <sub><em>Proyectos progresivos para conocer y validar las funciones de iCesDuck.</em></sub>
+</div>
+
+<br>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/INICIO-Blink-17365D?style=flat-square&amp;labelColor=454B54" alt="Blink">
+  <img src="https://img.shields.io/badge/DIGITAL-Contadores-17365D?style=flat-square&amp;labelColor=454B54" alt="Contadores">
+  <img src="https://img.shields.io/badge/SEÑALES-ADC_y_DAC-17365D?style=flat-square&amp;labelColor=454B54" alt="ADC y DAC">
+</p>
+
+Presenta proyectos progresivos para conocer la plataforma, comprobar sus interfaces y reutilizar diseños funcionales como base para nuevos desarrollos.
+
+**Úsala para:** ejecutar una primera prueba, aprender el flujo de trabajo o validar bloques específicos de la placa.
+
+<p align="right">
+  <a href="examples/README.md">
+    <img src="https://img.shields.io/badge/EXPLORAR-EJEMPLOS-0B1F3A?style=for-the-badge&amp;labelColor=454B54" alt="Explorar ejemplos">
+  </a>
+</p>
+
+</details>
+
+<details>
+<summary>
+  <strong>🧪 Pruebas y validación</strong>
+  <code>hardware</code>
+  <code>software</code>
+  <code>HDL</code>
+</summary>
+
+<br>
+
+<div align="center">
+  <img
+    src="docs/assets/navigation/ICD-NAV_05-Tests.png"
+    alt="Pruebas y validación de iCesDuck"
+    width="820"
+  >
+  <br>
+  <sub><em>Procedimientos y evidencias para comprobar el funcionamiento del sistema.</em></sub>
+</div>
+
+<br>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/PRUEBAS-Hardware-17365D?style=flat-square&amp;labelColor=454B54" alt="Pruebas de hardware">
+  <img src="https://img.shields.io/badge/PRUEBAS-Software-17365D?style=flat-square&amp;labelColor=454B54" alt="Pruebas de software">
+  <img src="https://img.shields.io/badge/VALIDACIÓN-HDL-17365D?style=flat-square&amp;labelColor=454B54" alt="Validación HDL">
+</p>
+
+Documenta procedimientos, mediciones, incidencias, resultados y evidencias para comprobar el funcionamiento independiente e integrado del sistema.
+
+**Úsala para:** reproducir pruebas, revisar resultados, registrar fallos o validar nuevas revisiones.
+
+<p align="right">
+  <a href="tests/README.md">
+    <img src="https://img.shields.io/badge/EXPLORAR-PRUEBAS-0B1F3A?style=for-the-badge&amp;labelColor=454B54" alt="Explorar pruebas">
+  </a>
+</p>
+
+</details>
+
+<details>
+<summary>
+  <strong>📘 Documentación</strong>
+  <code>inicio</code>
+  <code>arquitectura</code>
+  <code>protocolos</code>
+</summary>
+
+<br>
+
+<div align="center">
+  <img
+    src="docs/assets/navigation/ICD-NAV_06-Documentation.png"
+    alt="Documentación técnica de iCesDuck"
+    width="820"
+  >
+  <br>
+  <sub><em>Guías, arquitectura y referencias técnicas para comprender y ampliar la plataforma.</em></sub>
+</div>
+
+<br>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/INICIO-Instalación-17365D?style=flat-square&amp;labelColor=454B54" alt="Instalación">
+  <img src="https://img.shields.io/badge/SISTEMA-Arquitectura-17365D?style=flat-square&amp;labelColor=454B54" alt="Arquitectura">
+  <img src="https://img.shields.io/badge/REFERENCIA-Protocolos-17365D?style=flat-square&amp;labelColor=454B54" alt="Protocolos">
+</p>
+
+Explica cómo instalar, comprender, utilizar, mantener y ampliar iCesDuck mediante guías, referencias técnicas y documentación de arquitectura.
+
+**Úsala para:** preparar el entorno, consultar interfaces, entender el sistema o documentar nuevas funciones.
+
+<p align="right">
+  <a href="docs/README.md">
+    <img src="https://img.shields.io/badge/EXPLORAR-DOCUMENTACIÓN-0B1F3A?style=for-the-badge&amp;labelColor=454B54" alt="Explorar documentación">
+  </a>
+</p>
+
+</details>
 
 ---
 
@@ -155,7 +406,7 @@ El repositorio se divide por áreas para separar el diseño físico, el software
 |---|---|---|---|
 | **05-03-2025** | **V1.A1** | Funcional | Placa ensamblada, FPGA programada correctamente, reguladores de 3.3 V y 1.2 V estables y reloj de 48 MHz validado. ADC y DAC pendientes de validación completa. |
 | **17-09-2025** | **V1.A1** | Fallo identificado | Se detectó un cruce incorrecto en líneas de comunicación relacionadas con la memoria de configuración y los GPIO de la Raspberry Pi 4B. La FPGA puede programarse directamente, pero no conserva la configuración después de un reinicio. |
-| **Planificada: 03-08-2026** | **V1.A2** | En desarrollo | Corrección de líneas de comunicación, revisión de SPI, I²C y UART, ampliación de documentación y preparación de nuevos ejemplos funcionales. |
+| **Planificada: 03-08-2026** | **V2.A1** | En desarrollo | Corrección de líneas de comunicación, revisión de SPI, I²C y UART, ampliación de documentación y preparación de nuevos ejemplos funcionales. |
 
 ---
 
@@ -179,14 +430,12 @@ Una vez programada, la plataforma ejecuta el diseño directamente en hardware y 
   <img
     src="docs/assets/diagrams/ICD-DGM_02.png"
     alt="Flujo de síntesis, programación, ejecución y comunicación de iCesDuck"
-    width="620"
+    width="920"
   >
 </p>
 
 <p align="center">
-  <em>
-    Flujo general desde el diseño HDL en la Raspberry Pi 4B hasta la ejecución y comunicación con la plataforma iCesDuck.
-  </em>
+  <em>Flujo general desde el diseño HDL en la Raspberry Pi 4B hasta la ejecución y comunicación con la plataforma iCesDuck.</em>
 </p>
 
 ### Función de cada elemento
@@ -207,11 +456,7 @@ Esta organización separa el proceso de desarrollo del proceso de ejecución: la
 <td width="50%" valign="top">
 
 <p align="center">
-  <img
-    src="docs/assets/images/IMG_RPB_A1.png"
-    alt="Raspberry Pi 4B"
-    width="170"
-  >
+  <img src="docs/assets/images/IMG_RPB_A1.png" alt="Raspberry Pi 4B" width="170">
 </p>
 
 <h4 align="center">Raspberry Pi 4B</h4>
@@ -237,15 +482,10 @@ Esta organización separa el proceso de desarrollo del proceso de ejecución: la
 </p>
 
 </td>
-
 <td width="50%" valign="top">
 
 <p align="center">
-  <img
-    src="docs/assets/images/IMG_ICE_A1.png"
-    alt="FPGA Lattice iCE40UP5K"
-    width="110"
-  >
+  <img src="docs/assets/images/IMG_ICE_A1.png" alt="FPGA Lattice iCE40UP5K" width="110">
 </p>
 
 <h4 align="center">FPGA Lattice iCE40UP5K</h4>
@@ -275,6 +515,7 @@ Esta organización separa el proceso de desarrollo del proceso de ejecución: la
 </table>
 
 > La Raspberry Pi prepara, programa y supervisa el sistema; la FPGA convierte el diseño sintetizado en lógica digital ejecutándose directamente sobre hardware.
+
 ---
 
 ## Flujo de trabajo
@@ -285,14 +526,12 @@ El proceso de desarrollo de iCesDuck se organiza en seis etapas: diseño HDL, s�
   <img
     src="docs/assets/diagrams/ICD-DGM_03.png"
     alt="Flujo de trabajo de síntesis, programación, ejecución y supervisión de iCesDuck"
-    width="720"
+    width="920"
   >
 </p>
 
 <p align="center">
-  <em>
-    Flujo general desde el desarrollo del código HDL hasta la ejecución y validación del diseño sobre hardware real.
-  </em>
+  <em>Flujo general desde el desarrollo del código HDL hasta la ejecución y validación del diseño sobre hardware real.</em>
 </p>
 
 ### Etapas del proceso
@@ -323,9 +562,7 @@ El proyecto busca reducir la separación entre la simulación HDL y la implement
 </p>
 
 <p align="center">
-  <em>
-    iCesDuck integra el desarrollo HDL, la programación de la FPGA y la validación de señales sobre hardware real.
-  </em>
+  <em>iCesDuck integra el desarrollo HDL, la programación de la FPGA y la validación de señales sobre hardware real.</em>
 </p>
 
 Actualmente, iCesDuck se encuentra en una etapa de **maduración técnica**. Las revisiones de hardware, el software de carga, los ejemplos y la documentación continúan evolucionando conforme se validan nuevos bloques y se corrigen los problemas identificados en versiones anteriores.
