@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Estado-desarrollo_activo-245AA5?style=flat-square" alt="Estado: desarrollo activo">
+  <img src="https://img.shields.io/badge/Estado-Desarrollo_activo-245AA5?style=flat-square" alt="Estado: desarrollo activo">
   <img src="https://img.shields.io/badge/FPGA-iCE40UP5K-245AA5?style=flat-square" alt="FPGA Lattice iCE40UP5K">
   <img src="https://img.shields.io/badge/Host-Raspberry_Pi_4B-245AA5?style=flat-square" alt="Host Raspberry Pi 4B">
   <img src="https://img.shields.io/badge/HDL-Verilog_%7C_VHDL-245AA5?style=flat-square" alt="Verilog y VHDL">
@@ -609,6 +609,12 @@ Antes de realizar cambios importantes, revisa la estructura del repositorio y pr
 Este proyecto se distribuye bajo una licencia abierta. Consulta el archivo [`LICENSE`](LICENSE) para conocer sus términos y condiciones.
 
 ---
+<p align="center">
+  <img
+    src="docs/assets/images/ICD-IMG_04.png"
+    width="820"
+  >
+</p>
 
 <p align="center">
   <strong>iCesDuck</strong><br>
